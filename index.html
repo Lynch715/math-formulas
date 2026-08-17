@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F2F4F1">
+<meta name="format-detection" content="telephone=no">
+<meta name="description" content="小学到高中数学公式速查手册，覆盖一年级至高三，支持搜索与打印。">
+<title>数学公式大全 · 一年级到高三</title>
+<style>
+:root{
+  --paper:#F2F4F1;
+  --paper2:#FBFCFA;
+  --grid:rgba(31,92,122,.10);
+  --grid2:rgba(31,92,122,.055);
+  --ink:#16242B;
+  --pencil:#63757C;
+  --blue:#1F5C7A;
+  --blue-l:#3E8BAE;
+  --red:#B0322A;
+  --line:rgba(22,36,43,.13);
+  --kai:"Kaiti SC","KaiTi","STKaiti","楷体",serif;
+  --hei:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --fx:Cambria,Georgia,"Times New Roman","Songti SC","SimSun",serif;
+  /* 顶栏实际高度，由 JS 按屏幕/方向实时写入；下面的值只是首屏兜底 */
+  --topH:88px;
+  --pad:22px;        /* 页面左右留白 */
+  --labw:190px;      /* 公式条目「名称」列宽 */
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:rgba(31,92,122,.14)}
+body{
+  margin:0;font-family:var(--hei);color:var(--ink);
+  background-color:var(--paper);
+  background-image:
+    linear-gradient(var(--grid2) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid2) 1px,transparent 1px),
+    linear-gradient(var(--grid) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:20px 20px,20px 20px,100px 100px,100px 100px;
+  line-height:1.6;font-size:15px;
+}
+
+/* ---------- 顶部 ---------- */
+.top{position:sticky;top:0;z-index:30;background:rgba(242,244,241,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:1180px;margin:0 auto;padding:14px var(--pad);display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.brand{font-family:var(--kai);font-size:26px;font-weight:700;letter-spacing:.06em;white-space:nowrap;color:var(--blue)}
+.brand em{font-style:normal;color:var(--red)}
+.sub{font-size:12px;color:var(--pencil);letter-spacing:.14em;white-space:nowrap}
+.search{flex:1;min-width:220px;position:relative}
+.search input{
+  width:100%;padding:11px 40px 11px 15px;font-size:15px;font-family:var(--hei);
+  color:var(--ink);background:var(--paper2);border:1.5px solid var(--line);border-radius:2px;outline:none;
+}
+.search input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(31,92,122,.12)}
+.search input::placeholder{color:#9AA8AD}
+.search .cnt{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:11px;color:var(--pencil);font-family:var(--fx)}
+.tools{display:flex;gap:8px}
+.tools button{
+  font-family:var(--hei);font-size:13px;color:var(--blue);background:transparent;
+  border:1.5px solid var(--line);border-radius:2px;padding:9px 13px;cursor:pointer;white-space:nowrap;
+}
+.tools button:hover{border-color:var(--blue);background:rgba(31,92,122,.06)}
+.tools button:focus-visible,.search input:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+
+/* ---------- 布局 ---------- */
+.wrap{max-width:1180px;margin:0 auto;padding:0 var(--pad) 90px;display:grid;grid-template-columns:186px 1fr;gap:34px;align-items:start}
+
+/* ---------- 刻度尺导航 ---------- */
+.ruler{position:sticky;top:calc(var(--topH) + 6px);padding:26px 0 26px 0;border-left:2px solid var(--ink);margin-top:34px;
+  max-height:calc(100vh - var(--topH) - 40px);overflow-y:auto;scrollbar-width:thin;
+  -webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+@supports (height:100dvh){.ruler{max-height:calc(100dvh - var(--topH) - 40px)}}
+.ruler h4{font-family:var(--kai);font-size:13px;letter-spacing:.2em;color:var(--pencil);margin:0 0 14px 16px;font-weight:400}
+.stage{margin:0 0 4px}
+.stage>span{display:block;font-family:var(--kai);font-size:17px;color:var(--red);padding:10px 0 4px 16px;position:relative}
+.stage>span::before{content:"";position:absolute;left:-2px;top:18px;width:14px;height:2px;background:var(--red)}
+.ruler a{
+  display:block;position:relative;padding:3px 0 3px 16px;margin-left:0;
+  font-size:13.5px;color:var(--pencil);text-decoration:none;line-height:1.5;
+}
+.ruler a::before{content:"";position:absolute;left:-2px;top:13px;width:7px;height:1px;background:var(--line)}
+.ruler a:hover{color:var(--blue)}
+.ruler a.on{color:var(--blue);font-weight:600}
+.ruler a.on::before{width:14px;height:2px;background:var(--blue);top:12px}
+
+/* ---------- 内容 ---------- */
+.main{min-width:0;padding-top:34px}
+.stage-head{margin:0 0 22px;padding-bottom:12px;border-bottom:2px solid var(--ink);display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.stage-head h2{font-family:var(--kai);font-size:32px;margin:0;letter-spacing:.08em;font-weight:700}
+.stage-head .yr{font-family:var(--fx);font-size:13px;color:var(--red);letter-spacing:.1em}
+.stage-head .note{font-size:12.5px;color:var(--pencil);margin-left:auto}
+.stage-blk{margin-bottom:64px}
+
+.card{background:var(--paper2);border:1px solid var(--line);border-radius:2px;margin:0 0 16px;overflow:hidden;scroll-margin-top:calc(var(--topH) + 10px)}
+.card>h3{
+  margin:0;font-family:var(--hei);font-size:15px;font-weight:600;letter-spacing:.03em;
+  padding:12px 16px;cursor:pointer;display:flex;align-items:center;gap:10px;
+  background:linear-gradient(to right,rgba(31,92,122,.055),transparent);
+  border-bottom:1px solid transparent;user-select:none;
+}
+.card>h3::before{content:"";width:6px;height:6px;background:var(--blue);flex:none;transform:rotate(45deg);transition:transform .18s}
+.card>h3 .n{margin-left:auto;font-family:var(--fx);font-size:11.5px;color:var(--pencil);font-weight:400}
+.card.open>h3{border-bottom-color:var(--line)}
+.card.open>h3::before{transform:rotate(0deg)}
+.card>h3:hover{color:var(--blue)}
+.body{display:none;padding:6px 0 8px}
+.card.open .body{display:block}
+
+.fl{list-style:none;margin:0;padding:0}
+.fl li{
+  display:grid;grid-template-columns:var(--labw) 1fr;gap:16px;align-items:baseline;
+  padding:8px 16px;border-bottom:1px dashed rgba(22,36,43,.09);
+}
+.fl li:last-child{border-bottom:0}
+.lb{color:var(--pencil);font-size:13.5px;line-height:1.55;overflow-wrap:break-word}
+.fm{font-family:var(--fx);font-size:16px;color:var(--ink);line-height:1.85;
+  overflow-wrap:break-word;min-width:0}
+.fm b{font-weight:600;color:var(--blue)}
+.fm u{text-decoration:none;color:var(--red)}
+.fm small{font-family:var(--hei);font-size:12.5px;color:var(--pencil);margin-left:6px}
+.sep{display:inline-block;width:1px;height:12px;background:var(--line);margin:0 12px;vertical-align:-1px}
+
+/* 分数 / 根号 */
+.f{display:inline-block;vertical-align:-.58em;text-align:center;margin:0 .22em;font-size:.9em;line-height:1.3}
+.f b{display:block;border-bottom:1.2px solid currentColor;font-weight:inherit;color:inherit;padding:0 .3em}
+.f i{display:block;font-style:normal;padding:0 .3em}
+.rt{border-top:1.1px solid currentColor;padding:0 .18em;margin-left:-.08em}
+
+.tip{margin:8px 16px 4px;padding:9px 13px;border-left:3px solid var(--red);background:rgba(176,50,42,.05);font-size:13px;color:#5C3230;line-height:1.7}
+.tip b{color:var(--red)}
+
+.foot{max-width:1180px;margin:0 auto;padding:26px var(--pad) 60px;font-size:12.5px;color:var(--pencil);border-top:1px solid var(--line);text-align:center;line-height:2}
+.empty{display:none;padding:60px 10px;text-align:center;color:var(--pencil)}
+.empty b{display:block;font-family:var(--kai);font-size:22px;color:var(--ink);margin-bottom:6px;font-weight:400}
+
+mark{background:#FDE9A6;color:inherit;padding:0 1px;border-radius:1px}
+
+.up{position:fixed;right:var(--pad);bottom:calc(22px + env(safe-area-inset-bottom));
+  width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line);
+  background:var(--paper2);color:var(--blue);cursor:pointer;font-size:17px;display:none;z-index:40;
+  box-shadow:0 2px 10px rgba(22,36,43,.10)}
+
+/* =========================================================
+   响应式适配
+   1180+   桌面 / Pad Pro 横屏
+   1025–1180  笔记本 / Pad 横屏
+   701–1024   Pad 竖屏（保留侧边刻度尺，压缩尺度）
+   ≤700    手机竖屏（单列 + 芯片式导航）
+   横屏且矮  手机横屏（压扁纵向节奏，导航改横向滚动条）
+   ========================================================= */
+
+/* ---- 笔记本 / Pad 横屏 ---- */
+@media (max-width:1180px){
+  :root{--pad:18px;--labw:170px}
+  .wrap{grid-template-columns:172px 1fr;gap:26px;padding-bottom:80px}
+}
+/* Pad 横屏也是触摸屏 */
+@media (max-width:1180px) and (min-width:1025px){
+  .ruler a{min-height:32px;display:flex;align-items:center}
+  .ruler a::before{top:16px}
+  .ruler a.on::before{top:15px}
+}
+
+/* ---- Pad 竖屏（iPad 768 / Air 820 / Pro11 834） ---- */
+@media (max-width:1024px) and (min-width:701px){
+  :root{--pad:16px;--labw:146px}
+  body{font-size:14.5px}
+  .wrap{grid-template-columns:150px 1fr;gap:20px}
+  .top-in{padding:11px var(--pad);gap:12px}
+  .brand{font-size:22px}
+  .sub{font-size:11px;letter-spacing:.08em}
+  .search{min-width:180px}
+  .ruler{padding:20px 0;margin-top:28px}
+  .ruler h4{margin:0 0 10px 12px;font-size:12px}
+  .stage>span{padding:8px 0 3px 12px;font-size:15.5px}
+  .stage>span::before{top:16px}
+  /* Pad 是触摸屏：导航项加高到 ≥32px 便于点按 */
+  .ruler a{padding:5px 0 5px 12px;font-size:12.5px;min-height:32px;display:flex;align-items:center}
+  .ruler a::before{top:16px}
+  .ruler a.on::before{top:15px}
+  .main{padding-top:28px}
+  .stage-head h2{font-size:27px}
+  .stage-head .note{font-size:12px;flex-basis:100%;margin-left:0}
+  .fl li{gap:12px;padding:8px 13px}
+  .lb{font-size:12.5px}
+  .fm{font-size:15px}
+  .sep{margin:0 9px}
+  .stage-blk{margin-bottom:52px}
+}
+
+/* ---- 手机竖屏 ---- */
+@media (max-width:700px){
+  :root{--pad:12px}
+  body{font-size:15px;background-size:16px 16px,16px 16px,80px 80px,80px 80px}
+  .top-in{padding:9px var(--pad);gap:8px 12px}
+  .brand{font-size:19px}
+  .sub{display:none}
+  /* 搜索框换到第二行独占整宽，标题与按钮同一行 */
+  .search{order:3;flex:1 0 100%;min-width:0}
+  /* 16px：阻止 iOS 聚焦时自动放大；右侧留出条数计数的位置 */
+  .search input{font-size:16px;padding:11px 62px 11px 13px;text-overflow:ellipsis}
+  .tools{margin-left:auto;gap:6px}
+  .tools button{padding:9px 11px;font-size:12.5px}
+  .wrap{grid-template-columns:1fr;gap:0;padding:0 var(--pad) 72px}
+  /* 侧边刻度尺 → 顶部芯片导航 */
+  .ruler{position:static;border-left:0;border-top:2px solid var(--ink);margin-top:18px;padding:14px 0 4px;
+    display:flex;flex-wrap:wrap;gap:6px 8px;max-height:none;overflow:visible}
+  .ruler h4{display:none}
+  .stage{display:contents}
+  .stage>span{padding:6px 0 2px;font-size:15px;width:100%}
+  .stage>span::before{display:none}
+  .ruler a{padding:7px 11px;border:1px solid var(--line);border-radius:2px;font-size:12.5px;min-height:34px;
+    display:flex;align-items:center}
+  .ruler a::before{display:none}
+  .ruler a.on{border-color:var(--blue);background:rgba(31,92,122,.07)}
+  .main{padding-top:20px}
+  /* 单列：名称在上，公式在下 */
+  .fl li{grid-template-columns:1fr;gap:3px;padding:10px 12px}
+  .lb{font-size:12.5px;color:var(--blue);font-weight:600}
+  .fm{font-size:15.5px;line-height:1.9}
+  .sep{margin:0 8px}
+  .card>h3{padding:13px 12px;font-size:14.5px;min-height:46px}
+  .stage-head{margin-bottom:18px;gap:10px}
+  .stage-head h2{font-size:24px}
+  .stage-head .note{flex-basis:100%;margin-left:0;font-size:12px}
+  .stage-blk{margin-bottom:44px}
+  .tip{margin:8px 12px 4px;padding:9px 11px;font-size:12.5px;line-height:1.75}
+  .foot{padding-bottom:48px}
+  .up{right:var(--pad);width:42px;height:42px}
+}
+
+/* ---- 超窄屏（iPhone SE 375 / 更小） ---- */
+@media (max-width:380px){
+  :root{--pad:10px}
+  .brand{font-size:17.5px}
+  .tools button{padding:9px 9px;font-size:12px}
+  .fm{font-size:15px}
+  .card>h3{font-size:14px}
+  .ruler a{font-size:12px;padding:7px 9px}
+}
+
+/* ---- 手机横屏：宽度够但高度极小，纵向要省 ---- */
+@media (orientation:landscape) and (max-height:520px){
+  .top-in{padding:7px max(var(--pad),env(safe-area-inset-left)) 7px max(var(--pad),env(safe-area-inset-left));gap:10px}
+  .wrap{padding-left:max(var(--pad),env(safe-area-inset-left));padding-right:max(var(--pad),env(safe-area-inset-right));padding-bottom:48px}
+  .foot{padding-left:max(var(--pad),env(safe-area-inset-left));padding-right:max(var(--pad),env(safe-area-inset-right));padding-bottom:32px}
+  .brand{font-size:17px}
+  .sub{display:none}
+  /* 横屏最缺的是高度：搜索框收回同一行，顶栏保持单行 ~52px */
+  .top-in{flex-wrap:nowrap}
+  .search{order:0;flex:1 1 auto;min-width:110px}
+  .search input{padding:8px 58px 8px 11px;font-size:16px;text-overflow:ellipsis}
+  .tools{margin-left:0;flex:none}
+  .tools button{padding:7px 10px;font-size:12.5px;min-height:0}
+  .main{padding-top:14px}
+  .ruler{margin-top:12px}
+  .stage-head{margin-bottom:14px;padding-bottom:9px}
+  .stage-head h2{font-size:21px}
+  .stage-head .note{display:none}
+  .stage-blk{margin-bottom:34px}
+  .card{margin-bottom:12px}
+  .card>h3{padding:9px 12px;min-height:0}
+  .fl li{padding:6px 12px}
+  .fm{line-height:1.75}
+  .tip{margin:6px 12px 2px;padding:7px 10px}
+  .up{bottom:calc(12px + env(safe-area-inset-bottom));right:max(12px,env(safe-area-inset-right));width:38px;height:38px;font-size:15px}
+}
+
+/* 手机横屏：宽度已足够，恢复「名称 | 公式」双列，导航改单行横向滚动 */
+@media (orientation:landscape) and (max-height:520px) and (max-width:700px){
+  :root{--labw:130px}
+  .fl li{grid-template-columns:var(--labw) 1fr;gap:12px}
+  .lb{color:var(--pencil);font-weight:400}
+  .ruler{flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;padding:9px 0 7px;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .ruler::-webkit-scrollbar{display:none}
+  .stage{display:flex;flex:none;gap:6px;align-items:center}
+  .stage>span{width:auto;padding:0 2px 0 6px;font-size:13px;white-space:nowrap}
+  .ruler a{flex:none;white-space:nowrap;min-height:30px;padding:5px 10px}
+}
+
+/* 手机横屏（宽 700–1024，如 iPhone Pro Max / 小 Pad 横屏）：侧边刻度尺保留但收窄 */
+@media (orientation:landscape) and (max-height:520px) and (min-width:701px){
+  .wrap{grid-template-columns:132px 1fr;gap:16px}
+  .ruler{padding:12px 0;max-height:calc(100vh - var(--topH) - 24px)}
+  .ruler h4{display:none}
+  .stage>span{font-size:14px;padding:6px 0 2px 10px}
+  .stage>span::before{top:13px}
+  .ruler a{font-size:12px;padding:4px 0 4px 10px}
+}
+
+/* ---- 触摸屏：hover 会「粘住」，改为无 hover 反馈 + 放大点击区 ---- */
+@media (hover:hover) and (pointer:fine){
+  .fl li:hover{background:rgba(31,92,122,.045)}
+  .up:hover{border-color:var(--blue)}
+}
+/* 大屏但是触摸操作（Pad Pro 12.9 横屏等）：同样放大点击区 */
+@media (pointer:coarse){
+  .ruler a{min-height:32px;display:flex;align-items:center}
+  .ruler a::before{top:16px}
+  .ruler a.on::before{top:15px}
+}
+@media (hover:none){
+  .card>h3:hover{color:inherit}
+  .ruler a:hover{color:var(--pencil)}
+  .ruler a.on:hover{color:var(--blue)}
+  .tools button:hover{border-color:var(--line);background:transparent}
+  .tools button{min-height:42px}
+  .card>h3{min-height:46px}
+  .card>h3:active{background:linear-gradient(to right,rgba(31,92,122,.12),rgba(31,92,122,.02))}
+  .ruler a:active{color:var(--blue)}
+}
+
+@media print{
+  .top,.ruler,.up,.tools{display:none}
+  body{background:#fff;font-size:11px}
+  .wrap{display:block;max-width:none;padding:0}
+  .card{break-inside:avoid;border-color:#bbb}
+  .body{display:block!important}
+  .card>h3::before{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-in">
+    <div>
+      <div class="brand">数学公式<em>大全</em></div>
+      <div class="sub">一年级 — 高三 · 共 12 学年</div>
+    </div>
+    <div class="search">
+      <input id="q" type="search" placeholder="搜公式：梯形、韦达、二倍角、导数、方差…" autocomplete="off" aria-label="搜索公式">
+      <span class="cnt" id="cnt"></span>
+    </div>
+    <div class="tools">
+      <button id="expand" type="button">全部展开</button>
+      <button id="print" type="button">打印</button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+<nav class="ruler" id="ruler">
+  <h4>学段刻度</h4>
+</nav>
+<main class="main" id="main">
+
+<!-- ================= 小学 ================= -->
+<section class="stage-blk" id="s1">
+<div class="stage-head"><h2>小学</h2><span class="yr">GRADE 1–6</span><span class="note">数的运算 · 图形与几何 · 典型应用题</span></div>
+
+<section class="card open"><h3>一、四则运算与运算定律<span class="n">10 条</span></h3><div class="body"><ul class="fl">
+<li><span class="lb">加法交换律</span><span class="fm">a + b = b + a</span></li>
+<li><span class="lb">加法结合律</span><span class="fm">(a + b) + c = a + (b + c)</span></li>
+<li><span class="lb">乘法交换律</span><span class="fm">a × b = b × a</span></li>
+<li><span class="lb">乘法结合律</span><span class="fm">(a × b) × c = a × (b × c)</span></li>
+<li><span class="lb">乘法分配律</span><span class="fm">(a + b) × c = a × c + b × c<small>逆用：ac + bc = (a+b)c</small></span></li>
+<li><span class="lb">减法的性质</span><span class="fm">a − b − c = a − (b + c)<small>连减等于减去和</small></span></li>
+<li><span class="lb">除法的性质</span><span class="fm">a ÷ b ÷ c = a ÷ (b × c)</span></li>
+<li><span class="lb">加减法各部分关系</span><span class="fm">和 = 加数 + 加数<span class="sep"></span>加数 = 和 − 另一个加数<span class="sep"></span>差 = 被减数 − 减数<span class="sep"></span>被减数 = 差 + 减数</span></li>
+<li><span class="lb">乘除法各部分关系</span><span class="fm">积 = 因数 × 因数<span class="sep"></span>因数 = 积 ÷ 另一个因数<span class="sep"></span>被除数 = 商 × 除数 + 余数</span></li>
+<li><span class="lb">有余数的除法</span><span class="fm">余数 &lt; 除数</span></li>
+</ul>
+<div class="tip"><b>提醒</b>　运算顺序：先算括号里的，再算乘除，最后算加减；同级运算从左到右。</div>
+</div></section>
+
+<section class="card"><h3>二、数的认识与整除<span class="n">11 条</span></h3><div class="body"><ul class="fl">
+<li><span class="lb">因数与倍数</span><span class="fm">若 a ÷ b = c（无余数），则 b、c 是 a 的因数，a 是 b、c 的倍数</span></li>
+<li><span class="lb">2 的倍数特征</span><span class="fm">个位是 0、2、4、6、8</span></li>
+<li><span class="lb">5 的倍数特征</span><span class="fm">个位是 0 或 5</span></li>
+<li><span class="lb">3 的倍数特征</span><span class="fm">各位数字之和是 3 的倍数</span></li>
+<li><span class="lb">9 的倍数特征</span><span class="fm">各位数字之和是 9 的倍数</span></li>
+<li><span class="lb">4 / 25 的倍数特征</span><span class="fm">末两位是 4（或 25）的倍数</span></li>
+<li><span class="lb">8 / 125 的倍数特征</span><span class="fm">末三位是 8（或 125）的倍数</span></li>
+<li><span class="lb">质数与合数</span><span class="fm">质数只有 1 和它本身两个因数；1 既不是质数也不是合数<small>20 以内质数：2 3 5 7 11 13 17 19</small></span></li>
+<li><span class="lb">最大公因数 × 最小公倍数</span><span class="fm">(a, b) × [a, b] = a × b</span></li>
+<li><span class="lb">互质数</span><span class="fm">(a, b) = 1<small>两数互质时，[a, b] = a × b</small></span></li>
+<li><span class="lb">倍数关系</span><span class="fm">若 a 是 b 的倍数，则 (a, b) = b，[a, b] = a</span></li>
+</ul></div></section>
+
+<section class="card"><h3>三、分数、小数与百分数<span class="n">10 条</span></h3><div class="body"><ul class="fl">
+<li><span class="lb">分数的基本性质</span><span class="fm"><span class="f"><b>a</b><i>b</i></span> = <span class="f"><b>a × m</b><i>b × m</i></span> = <span class="f"><b>a ÷ m</b><i>b ÷ m</i></span><small>m ≠ 0</small></span></li>
+<li><span class="lb">分数加减（通分）</span><span class="fm"><span class="f"><b>a</b><i>b</i></span> ± <span class="f"><b>c</b><i>d</i></span> = <span class="f"><b>ad ± bc</b><i>bd</i></span></span></li>
+<li><span class="lb">分数乘法</span><span class="fm"><span class="f"><b>a</b><i>b</i></span> × <span class="f"><b>c</b><i>d</i></span> = <span class="f"><b>ac</b><i>bd</i></span></span></li>
+<li><span class="lb">分数除法</span><span class="fm"><span class="f"><b>a</b><i>b</i></span> ÷ <span class="f"><b>c</b><i>d</i></span> = <span class="f"><b>a</b><i>b</i></span> × <span class="f"><b>d</b><i>c</i></span></span></li>
+<li><span class="lb">带分数化假分数</span><span class="fm">c<span class="f"><b>a</b><i>b</i></span> = <span class="f"><b>cb + a</b><i>b</i></span></span></li>
+<li><span class="lb">分数与小数互化</span><span class="fm">分数 → 小数：分子 ÷ 分母<span class="sep"></span>小数 → 分数：0.a = <span class="f"><b>a</b><i>10</i></span>，0.ab = <span class="f"><b>ab</b><i>100</i></span></span></li>
+<li><span class="lb">百分数互化</span><span class="fm">小数 → 百分数：×100%<span class="sep"></span>百分数 → 小数：÷100</span></li>
+<li><span class="lb">求一个数的几分之几</span><span class="fm">部分量 = 单位「1」的量 × 对应分率</span></li>
+<li><span class="lb">已知部分求整体</span><span class="fm">单位「1」的量 = 部分量 ÷ 对应分率</span></li>
+<li><span class="lb">增减百分率</span><span class="fm">增长率 = <span class="f"><b>增加量</b><i>原数</i></span> × 100%<span class="sep"></span>现价 = 原价 × (1 ± 百分率)</span></li>
+</ul>
+<div class="tip"><b>易错</b>　「多百分之几」和「少百分之几」的单位「1」不同：甲比乙多 25%，不等于乙比甲少 25%（实为少 20%）。</div>
+</div></section>
+
+<section class="card"><h3>四、比、比例与正反比例<span class="n">7 条</span></h3><div class="body"><ul class="fl">
+<li><span class="lb">比的意义</span><span class="fm">a : b = a ÷ b = <span class="f"><b>a</b><i>b</i></span><small>b ≠ 0</small></span></li>
+<li><span class="lb">比的基本性质</span><span class="fm">a : b = (a × m) : (b × m) = (a ÷ m) : (b ÷ m)</span></li>
+<li><span class="lb">比例的基本性质</span><span class="fm">若 a : b = c : d，则 ad = bc<small>内项积 = 外项积</small></span></li>
+<li><span class="lb">正比例</span><span class="fm"><span class="f"><b>y</b><i>x</i></span> = k（k 为定值）<small>一个量扩大，另一个同倍扩大</small></span></li>
+<li><span class="lb">反比例</span><span class="fm">x · y = k（k 为定值）</span></li>
+<li><span class="lb">按比例分配</span><span class="fm">各部分量 = 总量 × <span class="f"><b>该份数</b><i>总份数</i></span></span></li>
+<li><span class="lb">比例尺</span><span class="fm">比例尺 = <span class="f"><b>图上距离</b><i>实际距离</i></span></span></li>
+</ul></div></section>
+
+<section class="card"><h3>五、平面图形：周长与面积<span class="n">10 条</span></h3><div class="body"><ul class="fl">
+<li><span class="lb">长方形</span><span class="fm">C = 2(a + b)<span class="sep"></span><b>S = ab</b></span></li>
+<li><span class="lb">正方形</span><span class="fm">C = 4a<span class="sep"></span><b>S = a²</b></span></li>
+<li><span class="lb">三角形</span><span class="fm"><b>S = <span class="f"><b>1</b><i>2</i></span> a h</b><small>a 为底，h 为对应高</small></span></li>
+<li><span class="lb">平行四边形</span><span class="fm"><b>S = a h</b></span></li>
+<li><span class="lb">梯形</span><span class="fm"><b>S = <span class="f"><b>1</b><i>2</i></span> (a + b) h</b><small>a 上底，b 下底</small></span></li>
+<li><span class="lb">圆</span><span class="fm">C = 2πr = πd<span class="sep"></span><b>S = πr²</b></span></li>
+<li><span class="lb">半圆</span><span class="fm">C = πr + 2r<span class="sep"></span>S = <span class="f"><b>1</b><i>2</i></span> πr²</span></li>
+<li><span class="lb">圆环</span><span class="fm">S = π(R² − r²)</span></li>
+<li><span class="lb">扇形（n° 圆心角）</span><span class="fm">S = <span class="f"><b>n</b><i>360</i></span> πr²</span></li>
+<li><span class="lb">常用 π 值</span><span class="fm">π ≈ 3.14<span class="sep"></span>2π ≈ 6.28<span class="sep"></span>3π ≈ 9.42<span class="sep"></span>4π ≈ 12.56<span class="sep"></span>9π ≈ 28.26</span></li>
+</ul></div></section>
+
+<section class="card"><h3>六、立体图形：表面积与体积<span class="n">8 条</span></h3><div class="body"><ul class="fl">
+<li><span class="lb">长方体</span><span class="fm">S<sub>表</sub> = 2(ab + ah + bh)<span class="sep"></span><b>V = abh</b></span></li>
+<li><span class="lb">正方体</span><span class="fm">S<sub>表</sub> = 6a²<span class="sep"></span><b>V = a³</b></span></li>
+<li><span class="lb">圆柱</span><span class="fm">S<sub>侧</sub> = 2πrh<span class="sep"></span>S<sub>表</sub> = 2πrh + 2πr²<span class="sep"></span><b>V = πr²h</b></span></li>
+<li><span class="lb">圆锥</span><span class="fm"><b>V = <span class="f"><b>1</b><i>3</i></span> πr²h</b><small>等底等高时是圆柱的三分之一</small></span></li>
+<li><span class="lb">柱体通用</span><span class="fm">V = S<sub>底</sub> × h</span></li>
+<li><span class="lb">锥体通用</span><span class="fm">V = <span class="f"><b>1</b><i>3</i></span> S<sub>底</sub> × h</span></li>
+<li><span class="lb">正方体棱长总和</span><span class="fm">L = 12a</span></li>
+<li><span class="lb">长方体棱长总和</span><span class="fm">L = 4(a + b + h)</span></li>
+</ul></div></section>
+
+<section class="card"><h3>七、单位换算<span class="n">7 组</span></h3><div class="body"><ul class="fl">
+<li><span class="lb">长度</span><span class="fm">1 km = 1000 m<span class="sep"></span>1 m = 10 dm = 100 cm = 1000 mm</span></li>
+<li><span class="lb">面积</span><span class="fm">1 km² = 100 公顷<span class="sep"></span>1 公顷 = 10000 m²<span class="sep"></span>1 m² = 100 dm² = 10000 cm²</span></li>
+<li><span class="lb">体积</span><span class="fm">1 m³ = 1000 dm³ = 1000000 cm³</span></li>
+<li><span class="lb">容积</span><span class="fm">1 L = 1000 mL<span class="sep"></span>1 L = 1 dm³<span class="sep"></span>1 mL = 1 cm³</span></li>
+<li><span class="lb">质量</span><span class="fm">1 吨 = 1000 kg<span class="sep"></span>1 kg = 1000 g</span></li>
+<li><span class="lb">时间</span><span class="fm">1 时 = 60 分 = 3600 秒<span class="sep"></span>1 日 = 24 时<span class="sep"></span>1 年 = 12 个月</span></li>
+<li><span class="lb">年月日</span><span class="fm">大月 31 天：1 3 5 7 8 10 12<span class="sep"></span>小月 30 天：4 6 9 11<span class="sep"></span>平年 365 天，闰年 366 天</span></li>
+</ul>
+<div class="tip"><b>判闰年</b>　公历年份能被 4 整除且不能被 100 整除，或能被 400 整除（如 2024 是闰年，1900 不是）。</div>
+</div></section>
+
+<section class="card"><h3>八、典型应用题公式<span class="n">14 条</span></h3><div class="body"><ul class="fl">
+<li><span class="lb">单价 · 总价</span><span class="fm">总价 = 单价 × 数量</span></li>
+<li><span class="lb">行程问题</span><span class="fm">路程 = 速度 × 时间<span class="sep"></span>速度 = 路程 ÷ 时间</span></li>
+<li><span class="lb">相遇问题</span><span class="fm">总路程 = (甲速 + 乙速) × 相遇时间</span></li>
+<li><span class="lb">追及问题</span><span class="fm">追及路程 = (快速 − 慢速) × 追及时间</span></li>
+<li><span class="lb">流水行船</span><span class="fm">顺水速 = 船速 + 水速<span class="sep"></span>逆水速 = 船速 − 水速<span class="sep"></span>船速 = (顺 + 逆) ÷ 2</span></li>
+<li><span class="lb">工程问题</span><span class="fm">工作总量 = 工作效率 × 工作时间<small>总量常设为「1」</small></span></li>
+<li><span class="lb">平均数</span><span class="fm">平均数 = 总数量 ÷ 总份数</span></li>
+<li><span class="lb">和差问题</span><span class="fm">大数 = (和 + 差) ÷ 2<span class="sep"></span>小数 = (和 − 差) ÷ 2</span></li>
+<li><span class="lb">和倍问题</span><span class="fm">小数 = 和 ÷ (倍数 + 1)</span></li>
+<li><span class="lb">差倍问题</span><span class="fm">小数 = 差 ÷ (倍数 − 1)</span></li>
+<li><span class="lb">鸡兔同笼</span><span class="fm">兔数 = (总脚数 − 2 × 总头数) ÷ 2<span class="sep"></span>鸡数 = 总头数 − 兔数</span></li>
+<li><span class="lb">植树问题</span><span class="fm">两端都栽：棵数 = 段数 + 1<span class="sep"></span>只栽一端：棵数 = 段数<span class="sep"></span>两端不栽：棵数 = 段数 − 1<span class="sep"></span>封闭图形：棵数 = 段数</span></li>
+<li><span class="lb">盈亏问题</span><span class="fm">份数 = (盈 + 亏) ÷ 两次分配差<span class="sep"></span>(大盈 − 小盈) ÷ 分配差、(大亏 − 小亏) ÷ 分配差</span></li>
+<li><span class="lb">浓度问题</span><span class="fm">浓度 = <span class="f"><b>溶质</b><i>溶液</i></span> × 100%<span class="sep"></span>溶液 = 溶质 + 溶剂</span></li>
+</ul></div></section>
+
+<section class="card"><h3>九、利润、利息与折扣<span class="n">6 条</span></h3><div class="body"><ul class="fl">
+<li><span class="lb">利润</span><span class="fm">利润 = 售价 − 进价<span class="sep"></span>利润率 = <span class="f"><b>利润</b><i>进价</i></span> × 100%</span></li>
+<li><span class="lb">售价</span><span class="fm">售价 = 进价 × (1 + 利润率)</span></li>
+<li><span class="lb">折扣</span><span class="fm">现价 = 原价 × 折扣<small>八折 = 原价的 80%</small></span></li>
+<li><span class="lb">利息</span><span class="fm">利息 = 本金 × 利率 × 时间</span></li>
+<li><span class="lb">本息合计</span><span class="fm">本息 = 本金 × (1 + 利率 × 时间)</span></li>
+<li><span class="lb">税额</span><span class="fm">应纳税额 = 营业额（或收入）× 税率</span></li>
+</ul></div></section>
+
+<section class="card"><h3>十、拓展与奥数常用模型<span class="n">12 条</span></h3><div class="body"><ul class="fl">
+<li><span class="lb">等差数列求和</span><span class="fm">和 = (首项 + 末项) × 项数 ÷ 2<span class="sep"></span>项数 = (末项 − 首项) ÷ 公差 + 1</span></li>
+<li><span class="lb">周期问题</span><span class="fm">总数 ÷ 周期长度 = 商 … 余数<small>看余数定位；余 0 时取周期最后一个</small></span></li>
+<li><span class="lb">抽屉原理</span><span class="fm">把 m 个物体放进 n 个抽屉，总有一个抽屉至少放 ⌈m ÷ n⌉ 个<small>n+1 个物体放 n 个抽屉，必有一屉 ≥ 2 个</small></span></li>
+<li><span class="lb">容斥原理（两类）</span><span class="fm">A ∪ B = A + B − A ∩ B</span></li>
+<li><span class="lb">容斥原理（三类）</span><span class="fm">总 = A + B + C − AB − BC − CA + ABC</span></li>
+<li><span class="lb">年龄问题</span><span class="fm"><u>年龄差始终不变</u>，倍数逐年变小<span class="sep"></span>常配合和差、和倍问题解</span></li>
+<li><span class="lb">牛吃草问题</span><span class="fm">草生长速度 = <span class="f"><b>牛₁×天₁ − 牛₂×天₂</b><i>天₁ − 天₂</i></span><span class="sep"></span>原有草量 = 牛₁×天₁ − 生长速度×天₁</span></li>
+<li><span class="lb">火车过桥</span><span class="fm">路程 = 桥长 + 车长<span class="sep"></span>错车：路程 = 两车长之和</span></li>
+<li><span class="lb">时钟问题</span><span class="fm">分针每分走 6°，时针每分走 0.5°<span class="sep"></span>分针每分钟追时针 5.5°</span></li>
+<li><span class="lb">方阵问题</span><span class="fm">实心方阵总数 = n²<span class="sep"></span>最外层人数 = 4(n − 1)<span class="sep"></span>相邻两层相差 8 人</span></li>
+<li><span class="lb">还原问题</span><span class="fm">倒推法：从结果出发逆运算<small>加↔减、乘↔除，顺序也要倒过来</small></span></li>
+<li><span class="lb">弃九法验算</span><span class="fm">数字和除以 9 的余数，在加、减、乘运算中保持对应关系</span></li>
+</ul>
+<div class="tip"><b>用法</b>　这一栏属于校内拓展与竞赛常见模型，日常作业不一定考，但对付「智力题」「附加题」很好用。</div>
+</div></section>
+</section>
+
+<!-- ================= 初中 ================= -->
+<section class="stage-blk" id="s2">
+<div class="stage-head"><h2>初中</h2><span class="yr">GRADE 7–9</span><span class="note">代数 · 函数 · 几何证明 · 统计概率</span></div>
+
+<section class="card"><h3>一、数与式：有理数、实数<span class="n">9 条</span></h3><div class="body"><ul class="fl">
+<li><span class="lb">绝对值</span><span class="fm">|a| = a (a ≥ 0)；|a| = −a (a &lt; 0)<span class="sep"></span>|a| ≥ 0</span></li>
+<li><span class="lb">相反数 · 倒数</span><span class="fm">a 与 −a 互为相反数<span class="sep"></span>a 与 <span class="f"><b>1</b><i>a</i></span> 互为倒数（a ≠ 0）</span></li>
+<li><span class="lb">数轴上两点距离</span><span class="fm">d = |a − b|</span></li>
+<li><span class="lb">科学计数法</span><span class="fm">N = a × 10<sup>n</sup><small>1 ≤ |a| &lt; 10</small></span></li>
+<li><span class="lb">平方根</span><span class="fm">若 x² = a (a ≥ 0)，则 x = ±√<span class="rt">a</span></span></li>
+<li><span class="lb">算术平方根性质</span><span class="fm">√<span class="rt">a²</span> = |a|<span class="sep"></span>(√<span class="rt">a</span>)² = a (a ≥ 0)</span></li>
+<li><span class="lb">立方根</span><span class="fm"><sup>3</sup>√<span class="rt">a³</span> = a<small>任何实数都有立方根</small></span></li>
+<li><span class="lb">二次根式乘除</span><span class="fm">√<span class="rt">a</span> · √<span class="rt">b</span> = √<span class="rt">ab</span><span class="sep"></span><span class="f"><b>√<span class="rt">a</span></b><i>√<span class="rt">b</span></i></span> = √<span class="rt"><span class="f"><b>a</b><i>b</i></span></span><small>a ≥ 0, b &gt; 0</small></span></li>
+<li><span class="lb">分母有理化</span><span class="fm"><span class="f"><b>1</b><i>√<span class="rt">a</span> + √<span class="rt">b</span></i></span> = <span class="f"><b>√<span class="rt">a</span> − √<span class="rt">b</span></b><i>a − b</i></span></span></li>
+</ul></div></section>
+
+<section class="card"><h3>二、整式运算与乘法公式<span class="n">10 条</span></h3><div class="body"><ul class="fl">
+<li><span class="lb">同底数幂相乘</span><span class="fm">a<sup>m</sup> · a<sup>n</sup> = a<sup>m+n</sup></span></li>
+<li><span class="lb">同底数幂相除</span><span class="fm">a<sup>m</sup> ÷ a<sup>n</sup> = a<sup>m−n</sup><small>a ≠ 0</small></span></li>
+<li><span class="lb">幂的乘方</span><span class="fm">(a<sup>m</sup>)<sup>n</sup> = a<sup>mn</sup></span></li>
+<li><span class="lb">积的乘方</span><span class="fm">(ab)<sup>n</sup> = a<sup>n</sup>b<sup>n</sup></span></li>
+<li><span class="lb">零指数与负指数</span><span class="fm">a<sup>0</sup> = 1<span class="sep"></span>a<sup>−p</sup> = <span class="f"><b>1</b><i>a<sup>p</sup></i></span><small>a ≠ 0</small></span></li>
+<li><span class="lb">平方差公式</span><span class="fm"><b>(a + b)(a − b) = a² − b²</b></span></li>
+<li><span class="lb">完全平方公式</span><span class="fm"><b>(a ± b)² = a² ± 2ab + b²</b></span></li>
+<li><span class="lb">完全平方变形</span><span class="fm">a² + b² = (a + b)² − 2ab<span class="sep"></span>(a − b)² = (a + b)² − 4ab</span></li>
+<li><span class="lb">立方和 · 立方差</span><span class="fm">a³ ± b³ = (a ± b)(a² ∓ ab + b²)</span></li>
+<li><span class="lb">三项完全平方</span><span class="fm">(a + b + c)² = a² + b² + c² + 2ab + 2bc + 2ca</span></li>
+</ul></div></section>
+
+<section class="card"><h3>三、因式分解与分式<span class="n">8 条</span></h3><div class="body"><ul class="fl">
+<li><span class="lb">提公因式法</span><span class="fm">ma + mb + mc = m(a + b + c)</span></li>
+<li><span class="lb">公式法</span><span class="fm">a² − b² = (a+b)(a−b)<span class="sep"></span>a² ± 2ab + b² = (a ± b)²</span></li>
+<li><span class="lb">十字相乘法</span><span class="fm">x² + (p + q)x + pq = (x + p)(x + q)</span></li>
+<li><span class="lb">二次三项式分解</span><span class="fm">ax² + bx + c = a(x − x₁)(x − x₂)<small>x₁、x₂ 为方程两根</small></span></li>
+<li><span class="lb">分式基本性质</span><span class="fm"><span class="f"><b>A</b><i>B</i></span> = <span class="f"><b>A · M</b><i>B · M</i></span><small>M ≠ 0</small></span></li>
+<li><span class="lb">分式乘除</span><span class="fm"><span class="f"><b>a</b><i>b</i></span> · <span class="f"><b>c</b><i>d</i></span> = <span class="f"><b>ac</b><i>bd</i></span><span class="sep"></span><span class="f"><b>a</b><i>b</i></span> ÷ <span class="f"><b>c</b><i>d</i></span> = <span class="f"><b>ad</b><i>bc</i></span></span></li>
+<li><span class="lb">分式有意义</span><span class="fm">分母 ≠ 0<span class="sep"></span>分式值为 0：分子 = 0 且分母 ≠ 0</span></li>
+<li><span class="lb">解分式方程</span><span class="fm">去分母 → 解整式方程 → <u>必须检验</u>（增根使最简公分母为 0）</span></li>
+</ul></div></section>
+
+<section class="card"><h3>四、方程与不等式<span class="n">10 条</span></h3><div class="body"><ul class="fl">
+<li><span class="lb">一元一次方程</span><span class="fm">ax + b = 0 (a ≠ 0)　⇒　x = −<span class="f"><b>b</b><i>a</i></span></span></li>
+<li><span class="lb">二元一次方程组</span><span class="fm">代入消元法、加减消元法</span></li>
+<li><span class="lb">一元二次方程一般式</span><span class="fm">ax² + bx + c = 0<small>a ≠ 0</small></span></li>
+<li><span class="lb">求根公式</span><span class="fm"><b>x = <span class="f"><b>−b ± √<span class="rt">b² − 4ac</span></b><i>2a</i></span></b></span></li>
+<li><span class="lb">判别式 Δ</span><span class="fm">Δ = b² − 4ac<span class="sep"></span>Δ &gt; 0 两不等实根<span class="sep"></span>Δ = 0 两相等实根<span class="sep"></span>Δ &lt; 0 无实根</span></li>
+<li><span class="lb">韦达定理（根与系数）</span><span class="fm"><b>x₁ + x₂ = −<span class="f"><b>b</b><i>a</i></span><span class="sep"></span>x₁ · x₂ = <span class="f"><b>c</b><i>a</i></span></b></span></li>
+<li><span class="lb">韦达常用变形</span><span class="fm">x₁² + x₂² = (x₁+x₂)² − 2x₁x₂<span class="sep"></span><span class="f"><b>1</b><i>x₁</i></span> + <span class="f"><b>1</b><i>x₂</i></span> = <span class="f"><b>x₁+x₂</b><i>x₁x₂</i></span><span class="sep"></span>|x₁ − x₂| = <span class="f"><b>√<span class="rt">Δ</span></b><i>|a|</i></span></span></li>
+<li><span class="lb">配方法</span><span class="fm">x² + px + q = (x + <span class="f"><b>p</b><i>2</i></span>)² + q − <span class="f"><b>p²</b><i>4</i></span></span></li>
+<li><span class="lb">不等式性质</span><span class="fm">a &gt; b ⇒ a + c &gt; b + c<span class="sep"></span>a &gt; b, c &gt; 0 ⇒ ac &gt; bc<span class="sep"></span><u>a &gt; b, c &lt; 0 ⇒ ac &lt; bc（变号）</u></span></li>
+<li><span class="lb">不等式组解集</span><span class="fm">同大取大<span class="sep"></span>同小取小<span class="sep"></span>大小小大中间找<span class="sep"></span>大大小小无解</span></li>
+</ul></div></section>
+
+<section class="card"><h3>五、函数：一次、反比例、二次<span class="n">12 条</span></h3><div class="body"><ul class="fl">
+<li><span class="lb">正比例函数</span><span class="fm">y = kx (k ≠ 0)<small>过原点的直线</small></span></li>
+<li><span class="lb">一次函数</span><span class="fm">y = kx + b (k ≠ 0)<span class="sep"></span>k &gt; 0 递增；k &lt; 0 递减</span></li>
+<li><span class="lb">直线与坐标轴交点</span><span class="fm">与 y 轴交于 (0, b)，与 x 轴交于 (−<span class="f"><b>b</b><i>k</i></span>, 0)</span></li>
+<li><span class="lb">两点间距离</span><span class="fm">d = √<span class="rt">(x₂−x₁)² + (y₂−y₁)²</span></span></li>
+<li><span class="lb">中点坐标</span><span class="fm">M ( <span class="f"><b>x₁+x₂</b><i>2</i></span> , <span class="f"><b>y₁+y₂</b><i>2</i></span> )</span></li>
+<li><span class="lb">反比例函数</span><span class="fm">y = <span class="f"><b>k</b><i>x</i></span> (k ≠ 0)<small>双曲线；k &gt; 0 在一三象限</small></span></li>
+<li><span class="lb">反比例 k 的几何意义</span><span class="fm">S<sub>矩形</sub> = |k|<span class="sep"></span>S<sub>三角形</sub> = <span class="f"><b>1</b><i>2</i></span>|k|</span></li>
+<li><span class="lb">二次函数一般式</span><span class="fm">y = ax² + bx + c (a ≠ 0)</span></li>
+<li><span class="lb">对称轴与顶点</span><span class="fm"><b>x = −<span class="f"><b>b</b><i>2a</i></span></b><span class="sep"></span>顶点 ( −<span class="f"><b>b</b><i>2a</i></span> , <span class="f"><b>4ac − b²</b><i>4a</i></span> )</span></li>
+<li><span class="lb">顶点式 · 交点式</span><span class="fm">y = a(x − h)² + k<span class="sep"></span>y = a(x − x₁)(x − x₂)</span></li>
+<li><span class="lb">开口与最值</span><span class="fm">a &gt; 0 开口向上，有最小值<span class="sep"></span>a &lt; 0 开口向下，有最大值</span></li>
+<li><span class="lb">图象平移</span><span class="fm">左加右减（对 x）、上加下减（对 y）<small>y = a(x − h)² + k</small></span></li>
+</ul>
+<div class="tip"><b>抛物线与 x 轴</b>　交点个数由 Δ = b² − 4ac 决定：Δ &gt; 0 两个交点，Δ = 0 一个，Δ &lt; 0 没有。</div>
+</div></section>
+
+<section class="card"><h3>六、三角形<span class="n">12 条</span></h3><div class="body"><ul class="fl">
+<li><span class="lb">内角和</span><span class="fm">∠A + ∠B + ∠C = 180°</span></li>
+<li><span class="lb">外角定理</span><span class="fm">一个外角 = 与它不相邻的两内角之和</span></li>
+<li><span class="lb">三边关系</span><span class="fm">|b − c| &lt; a &lt; b + c</span></li>
+<li><span class="lb">面积</span><span class="fm">S = <span class="f"><b>1</b><i>2</i></span> a h<span class="sep"></span>海伦公式：S = √<span class="rt">p(p−a)(p−b)(p−c)</span>，p = <span class="f"><b>a+b+c</b><i>2</i></span></span></li>
+<li><span class="lb">中位线定理</span><span class="fm">中位线 ∥ 第三边，且等于第三边的一半</span></li>
+<li><span class="lb">勾股定理</span><span class="fm"><b>a² + b² = c²</b><small>c 为斜边</small></span></li>
+<li><span class="lb">勾股数</span><span class="fm">3,4,5<span class="sep"></span>5,12,13<span class="sep"></span>6,8,10<span class="sep"></span>7,24,25<span class="sep"></span>8,15,17<span class="sep"></span>9,40,41</span></li>
+<li><span class="lb">直角三角形性质</span><span class="fm">斜边中线 = <span class="f"><b>1</b><i>2</i></span> 斜边<span class="sep"></span>30° 角所对直角边 = <span class="f"><b>1</b><i>2</i></span> 斜边</span></li>
+<li><span class="lb">等边三角形</span><span class="fm">h = <span class="f"><b>√<span class="rt">3</span></b><i>2</i></span> a<span class="sep"></span>S = <span class="f"><b>√<span class="rt">3</span></b><i>4</i></span> a²</span></li>
+<li><span class="lb">全等判定</span><span class="fm">SSS<span class="sep"></span>SAS<span class="sep"></span>ASA<span class="sep"></span>AAS<span class="sep"></span>HL（仅直角三角形）</span></li>
+<li><span class="lb">相似判定</span><span class="fm">两角对应相等<span class="sep"></span>两边成比例且夹角相等<span class="sep"></span>三边成比例</span></li>
+<li><span class="lb">相似性质</span><span class="fm">对应边之比 = 相似比 k<span class="sep"></span>周长比 = k<span class="sep"></span><b>面积比 = k²</b></span></li>
+</ul></div></section>
+
+<section class="card"><h3>七、四边形与多边形<span class="n">9 条</span></h3><div class="body"><ul class="fl">
+<li><span class="lb">n 边形内角和</span><span class="fm"><b>(n − 2) × 180°</b></span></li>
+<li><span class="lb">n 边形外角和</span><span class="fm">360°<small>与边数无关</small></span></li>
+<li><span class="lb">n 边形对角线条数</span><span class="fm"><span class="f"><b>n(n − 3)</b><i>2</i></span></span></li>
+<li><span class="lb">正 n 边形每个内角</span><span class="fm"><span class="f"><b>(n − 2) × 180°</b><i>n</i></span></span></li>
+<li><span class="lb">平行四边形判定</span><span class="fm">两组对边分别平行 / 分别相等<span class="sep"></span>一组对边平行且相等<span class="sep"></span>对角线互相平分</span></li>
+<li><span class="lb">矩形</span><span class="fm">四个角都是直角<span class="sep"></span>对角线相等且互相平分<span class="sep"></span>S = ab</span></li>
+<li><span class="lb">菱形</span><span class="fm">四边相等<span class="sep"></span>对角线互相垂直平分<span class="sep"></span>S = ah = <span class="f"><b>1</b><i>2</i></span> d₁d₂</span></li>
+<li><span class="lb">正方形</span><span class="fm">既是矩形又是菱形<span class="sep"></span>对角线 = √<span class="rt">2</span> a<span class="sep"></span>S = a² = <span class="f"><b>1</b><i>2</i></span> d²</span></li>
+<li><span class="lb">梯形</span><span class="fm">中位线 = <span class="f"><b>1</b><i>2</i></span>(a + b)<span class="sep"></span>S = 中位线 × h</span></li>
+</ul></div></section>
+
+<section class="card"><h3>八、圆<span class="n">11 条</span></h3><div class="body"><ul class="fl">
+<li><span class="lb">垂径定理</span><span class="fm">垂直于弦的直径平分这条弦，并平分弦所对的两条弧</span></li>
+<li><span class="lb">弦长与弦心距</span><span class="fm">(<span class="f"><b>L</b><i>2</i></span>)² + d² = r²</span></li>
+<li><span class="lb">圆周角定理</span><span class="fm">同弧所对圆周角 = <span class="f"><b>1</b><i>2</i></span> 圆心角</span></li>
+<li><span class="lb">直径所对圆周角</span><span class="fm">= 90°<small>反之亦成立</small></span></li>
+<li><span class="lb">切线性质与判定</span><span class="fm">切线 ⊥ 过切点的半径<span class="sep"></span>d = r ⇔ 直线与圆相切</span></li>
+<li><span class="lb">切线长定理</span><span class="fm">从圆外一点引的两条切线长相等，且该点与圆心连线平分两切线夹角</span></li>
+<li><span class="lb">圆内接四边形</span><span class="fm">对角互补，外角 = 内对角</span></li>
+<li><span class="lb">弧长</span><span class="fm"><b>l = <span class="f"><b>nπr</b><i>180</i></span></b><small>n 为圆心角度数</small></span></li>
+<li><span class="lb">扇形面积</span><span class="fm">S = <span class="f"><b>nπr²</b><i>360</i></span> = <span class="f"><b>1</b><i>2</i></span> l r</span></li>
+<li><span class="lb">圆锥侧面积</span><span class="fm">S<sub>侧</sub> = πrl<small>l 为母线；侧面展开是扇形</small></span></li>
+<li><span class="lb">直线与圆位置关系</span><span class="fm">d &gt; r 相离<span class="sep"></span>d = r 相切<span class="sep"></span>d &lt; r 相交</span></li>
+</ul></div></section>
+
+<section class="card"><h3>九、锐角三角函数<span class="n">7 条</span></h3><div class="body"><ul class="fl">
+<li><span class="lb">定义（Rt△，∠C = 90°）</span><span class="fm">sin A = <span class="f"><b>对边</b><i>斜边</i></span><span class="sep"></span>cos A = <span class="f"><b>邻边</b><i>斜边</i></span><span class="sep"></span>tan A = <span class="f"><b>对边</b><i>邻边</i></span></span></li>
+<li><span class="lb">30°</span><span class="fm">sin = <span class="f"><b>1</b><i>2</i></span><span class="sep"></span>cos = <span class="f"><b>√<span class="rt">3</span></b><i>2</i></span><span class="sep"></span>tan = <span class="f"><b>√<span class="rt">3</span></b><i>3</i></span></span></li>
+<li><span class="lb">45°</span><span class="fm">sin = <span class="f"><b>√<span class="rt">2</span></b><i>2</i></span><span class="sep"></span>cos = <span class="f"><b>√<span class="rt">2</span></b><i>2</i></span><span class="sep"></span>tan = 1</span></li>
+<li><span class="lb">60°</span><span class="fm">sin = <span class="f"><b>√<span class="rt">3</span></b><i>2</i></span><span class="sep"></span>cos = <span class="f"><b>1</b><i>2</i></span><span class="sep"></span>tan = √<span class="rt">3</span></span></li>
+<li><span class="lb">互余关系</span><span class="fm">sin A = cos(90° − A)<span class="sep"></span>tan A · tan(90° − A) = 1</span></li>
+<li><span class="lb">同角关系</span><span class="fm">sin²A + cos²A = 1<span class="sep"></span>tan A = <span class="f"><b>sin A</b><i>cos A</i></span></span></li>
+<li><span class="lb">坡度（坡比）</span><span class="fm">i = <span class="f"><b>h</b><i>l</i></span> = tan α<small>h 垂直高度，l 水平宽度；仰角、俯角均从水平线量起</small></span></li>
+</ul></div></section>
+
+<section class="card"><h3>十、统计与概率<span class="n">8 条</span></h3><div class="body"><ul class="fl">
+<li><span class="lb">平均数</span><span class="fm">x̄ = <span class="f"><b>x₁ + x₂ + … + x<sub>n</sub></b><i>n</i></span></span></li>
+<li><span class="lb">加权平均数</span><span class="fm">x̄ = <span class="f"><b>x₁w₁ + x₂w₂ + … + x<sub>n</sub>w<sub>n</sub></b><i>w₁ + w₂ + … + w<sub>n</sub></i></span></span></li>
+<li><span class="lb">中位数 · 众数</span><span class="fm">中位数：排序后正中间的数（偶数个取中间两数平均）<span class="sep"></span>众数：出现次数最多的数</span></li>
+<li><span class="lb">方差</span><span class="fm"><b>s² = <span class="f"><b>1</b><i>n</i></span> [ (x₁ − x̄)² + … + (x<sub>n</sub> − x̄)² ]</b><small>越小越稳定</small></span></li>
+<li><span class="lb">标准差</span><span class="fm">s = √<span class="rt">s²</span></span></li>
+<li><span class="lb">极差</span><span class="fm">极差 = 最大值 − 最小值</span></li>
+<li><span class="lb">频率</span><span class="fm">频率 = <span class="f"><b>频数</b><i>总数</i></span><span class="sep"></span>各组频率之和 = 1</span></li>
+<li><span class="lb">古典概率</span><span class="fm">P(A) = <span class="f"><b>A 包含的结果数</b><i>所有等可能结果数</i></span><small>0 ≤ P(A) ≤ 1</small></span></li>
+</ul></div></section>
+
+<section class="card"><h3>十一、中考常用结论与几何模型<span class="n">13 条</span></h3><div class="body"><ul class="fl">
+<li><span class="lb">直角三角形内切圆半径</span><span class="fm">r = <span class="f"><b>a + b − c</b><i>2</i></span><small>c 为斜边</small></span></li>
+<li><span class="lb">任意三角形内切圆半径</span><span class="fm">r = <span class="f"><b>2S</b><i>a + b + c</i></span></span></li>
+<li><span class="lb">直角三角形外接圆半径</span><span class="fm">R = <span class="f"><b>c</b><i>2</i></span><small>斜边中点即外心</small></span></li>
+<li><span class="lb">直角三角形斜边上的高</span><span class="fm">h = <span class="f"><b>ab</b><i>c</i></span><span class="sep"></span>射影定理：a² = c·p，h² = p·q</span></li>
+<li><span class="lb">将军饮马（最短路径）</span><span class="fm">作对称点，两点之间线段最短<small>「和最小」用对称，「差最大」用延长</small></span></li>
+<li><span class="lb">一线三等角模型</span><span class="fm">同一直线上三个相等角 ⇒ 两三角形相似<small>三垂直是其特例</small></span></li>
+<li><span class="lb">手拉手模型</span><span class="fm">共顶点的两个等腰（等边）三角形，旋转后必出全等<span class="sep"></span>对应边夹角 = 顶角</span></li>
+<li><span class="lb">A 字型 · 8 字型相似</span><span class="fm">DE ∥ BC ⇒ △ADE ∽ △ABC<span class="sep"></span>对顶角 + 平行 ⇒ 8 字型相似</span></li>
+<li><span class="lb">中点四边形</span><span class="fm">任意四边形各边中点连线 ⇒ 平行四边形<span class="sep"></span>对角线相等 ⇒ 菱形<span class="sep"></span>对角线垂直 ⇒ 矩形</span></li>
+<li><span class="lb">等高三角形面积比</span><span class="fm">S₁ : S₂ = 底₁ : 底₂<span class="sep"></span>共角三角形：<span class="f"><b>S₁</b><i>S₂</i></span> = <span class="f"><b>ab</b><i>a′b′</i></span></span></li>
+<li><span class="lb">隐圆（定点定长 / 定弦定角）</span><span class="fm">动点到定点距离不变 ⇒ 在圆上<span class="sep"></span>定线段所对角为定值 ⇒ 在弧上</span></li>
+<li><span class="lb">二次函数与 x 轴截距</span><span class="fm">|x₁ − x₂| = <span class="f"><b>√<span class="rt">b² − 4ac</span></b><i>|a|</i></span></span></li>
+<li><span class="lb">反比例与一次函数交点</span><span class="fm">两交点关于原点对称，坐标互为相反数</span></li>
+</ul></div></section>
+</section>
+
+<!-- ================= 高中 ================= -->
+<section class="stage-blk" id="s3">
+<div class="stage-head"><h2>高中</h2><span class="yr">GRADE 10–12</span><span class="note">必修 + 选择性必修 · 高考核心公式</span></div>
+
+<section class="card"><h3>一、集合与常用逻辑用语<span class="n">8 条</span></h3><div class="body"><ul class="fl">
+<li><span class="lb">集合运算</span><span class="fm">A ∩ B = {x | x ∈ A 且 x ∈ B}<span class="sep"></span>A ∪ B = {x | x ∈ A 或 x ∈ B}</span></li>
+<li><span class="lb">补集</span><span class="fm">∁<sub>U</sub>A = {x | x ∈ U 且 x ∉ A}</span></li>
+<li><span class="lb">德摩根律</span><span class="fm">∁<sub>U</sub>(A ∩ B) = (∁<sub>U</sub>A) ∪ (∁<sub>U</sub>B)<span class="sep"></span>∁<sub>U</sub>(A ∪ B) = (∁<sub>U</sub>A) ∩ (∁<sub>U</sub>B)</span></li>
+<li><span class="lb">子集个数</span><span class="fm">含 n 个元素的集合有 2<sup>n</sup> 个子集，2<sup>n</sup> − 1 个真子集</span></li>
+<li><span class="lb">包含关系等价</span><span class="fm">A ⊆ B ⇔ A ∩ B = A ⇔ A ∪ B = B</span></li>
+<li><span class="lb">充分必要条件</span><span class="fm">p ⇒ q：p 是 q 的充分条件<span class="sep"></span>q ⇒ p：p 是 q 的必要条件<span class="sep"></span>p ⇔ q：充要条件</span></li>
+<li><span class="lb">小范围推大范围</span><span class="fm">A ⊊ B ⇔ 「x ∈ A」是「x ∈ B」的充分不必要条件</span></li>
+<li><span class="lb">全称与存在量词否定</span><span class="fm">¬(∀x, p(x)) ⇔ ∃x, ¬p(x)<span class="sep"></span>¬(∃x, p(x)) ⇔ ∀x, ¬p(x)</span></li>
+</ul></div></section>
+
+<section class="card"><h3>二、不等式<span class="n">8 条</span></h3><div class="body"><ul class="fl">
+<li><span class="lb">基本不等式</span><span class="fm"><b><span class="f"><b>a + b</b><i>2</i></span> ≥ √<span class="rt">ab</span></b><small>a, b &gt; 0，当且仅当 a = b 取等</small></span></li>
+<li><span class="lb">变形</span><span class="fm">a + b ≥ 2√<span class="rt">ab</span><span class="sep"></span>ab ≤ (<span class="f"><b>a + b</b><i>2</i></span>)²<span class="sep"></span>a² + b² ≥ 2ab</span></li>
+<li><span class="lb">四均值不等式</span><span class="fm"><span class="f"><b>2</b><i><span class="f"><b>1</b><i>a</i></span>+<span class="f"><b>1</b><i>b</i></span></i></span> ≤ √<span class="rt">ab</span> ≤ <span class="f"><b>a+b</b><i>2</i></span> ≤ √<span class="rt"><span class="f"><b>a²+b²</b><i>2</i></span></span><small>调和 ≤ 几何 ≤ 算术 ≤ 平方</small></span></li>
+<li><span class="lb">「1」的妙用</span><span class="fm">已知 <span class="f"><b>1</b><i>a</i></span> + <span class="f"><b>1</b><i>b</i></span> = 1，求 a + b：(a+b)(<span class="f"><b>1</b><i>a</i></span>+<span class="f"><b>1</b><i>b</i></span>) 展开后用基本不等式</span></li>
+<li><span class="lb">一元二次不等式</span><span class="fm">ax² + bx + c &gt; 0 (a &gt; 0)：<u>大于取两边，小于取中间</u></span></li>
+<li><span class="lb">分式不等式</span><span class="fm"><span class="f"><b>f(x)</b><i>g(x)</i></span> &gt; 0 ⇔ f(x)·g(x) &gt; 0<span class="sep"></span>≥ 0 时须加 g(x) ≠ 0</span></li>
+<li><span class="lb">绝对值不等式</span><span class="fm">|x| &lt; a ⇔ −a &lt; x &lt; a<span class="sep"></span>|x| &gt; a ⇔ x &gt; a 或 x &lt; −a<small>a &gt; 0</small></span></li>
+<li><span class="lb">三角不等式</span><span class="fm">||a| − |b|| ≤ |a ± b| ≤ |a| + |b|</span></li>
+</ul></div></section>
+
+<section class="card"><h3>三、函数的性质<span class="n">9 条</span></h3><div class="body"><ul class="fl">
+<li><span class="lb">奇函数</span><span class="fm">f(−x) = −f(x)，图象关于原点对称<small>若定义域含 0，则 f(0) = 0</small></span></li>
+<li><span class="lb">偶函数</span><span class="fm">f(−x) = f(x)，图象关于 y 轴对称</span></li>
+<li><span class="lb">单调性定义</span><span class="fm">x₁ &lt; x₂ 时 f(x₁) &lt; f(x₂) 为增函数<span class="sep"></span>亦可用 f′(x) &gt; 0 判定</span></li>
+<li><span class="lb">周期性</span><span class="fm">f(x + T) = f(x)<span class="sep"></span>f(x + a) = −f(x) ⇒ T = 2a<span class="sep"></span>f(x + a) = <span class="f"><b>1</b><i>f(x)</i></span> ⇒ T = 2a</span></li>
+<li><span class="lb">对称性</span><span class="fm">f(a + x) = f(a − x) ⇒ 对称轴 x = a<span class="sep"></span>f(a + x) = −f(a − x) ⇒ 对称中心 (a, 0)</span></li>
+<li><span class="lb">图象变换</span><span class="fm">y = f(x − a) 右移 a<span class="sep"></span>y = f(x) + b 上移 b<span class="sep"></span>y = f(−x) 关于 y 轴对称</span></li>
+<li><span class="lb">二次函数最值</span><span class="fm">顶点 x = −<span class="f"><b>b</b><i>2a</i></span>，最值 <span class="f"><b>4ac − b²</b><i>4a</i></span><small>闭区间上须讨论对称轴位置</small></span></li>
+<li><span class="lb">对勾函数</span><span class="fm">y = x + <span class="f"><b>a</b><i>x</i></span> (a &gt; 0)：x &gt; 0 时最小值 2√<span class="rt">a</span>，在 x = √<span class="rt">a</span> 处取得</span></li>
+<li><span class="lb">零点存在定理</span><span class="fm">f 在 [a, b] 连续且 f(a)·f(b) &lt; 0 ⇒ (a, b) 内至少有一个零点</span></li>
+</ul></div></section>
+
+<section class="card"><h3>四、指数、对数与幂函数<span class="n">10 条</span></h3><div class="body"><ul class="fl">
+<li><span class="lb">分数指数幂</span><span class="fm">a<sup>m/n</sup> = <sup>n</sup>√<span class="rt">a<sup>m</sup></span><span class="sep"></span>a<sup>−p</sup> = <span class="f"><b>1</b><i>a<sup>p</sup></i></span></span></li>
+<li><span class="lb">指数运算</span><span class="fm">a<sup>m</sup>a<sup>n</sup> = a<sup>m+n</sup><span class="sep"></span>(a<sup>m</sup>)<sup>n</sup> = a<sup>mn</sup><span class="sep"></span>(ab)<sup>n</sup> = a<sup>n</sup>b<sup>n</sup></span></li>
+<li><span class="lb">对数定义</span><span class="fm">a<sup>b</sup> = N ⇔ b = log<sub>a</sub>N<small>a &gt; 0 且 a ≠ 1，N &gt; 0</small></span></li>
+<li><span class="lb">对数恒等式</span><span class="fm">a<sup>log<sub>a</sub>N</sup> = N<span class="sep"></span>log<sub>a</sub>1 = 0<span class="sep"></span>log<sub>a</sub>a = 1</span></li>
+<li><span class="lb">对数运算</span><span class="fm"><b>log<sub>a</sub>(MN) = log<sub>a</sub>M + log<sub>a</sub>N</b><span class="sep"></span>log<sub>a</sub><span class="f"><b>M</b><i>N</i></span> = log<sub>a</sub>M − log<sub>a</sub>N</span></li>
+<li><span class="lb">对数幂</span><span class="fm">log<sub>a</sub>M<sup>n</sup> = n log<sub>a</sub>M<span class="sep"></span>log<sub>a<sup>m</sup></sub>M<sup>n</sup> = <span class="f"><b>n</b><i>m</i></span> log<sub>a</sub>M</span></li>
+<li><span class="lb">换底公式</span><span class="fm"><b>log<sub>a</sub>b = <span class="f"><b>log<sub>c</sub>b</b><i>log<sub>c</sub>a</i></span></b><span class="sep"></span>log<sub>a</sub>b · log<sub>b</sub>a = 1</span></li>
+<li><span class="lb">指数函数</span><span class="fm">y = a<sup>x</sup>：过 (0, 1)<span class="sep"></span>a &gt; 1 递增，0 &lt; a &lt; 1 递减</span></li>
+<li><span class="lb">对数函数</span><span class="fm">y = log<sub>a</sub>x：过 (1, 0)，与 y = a<sup>x</sup> 关于 y = x 对称</span></li>
+<li><span class="lb">幂函数</span><span class="fm">y = x<sup>α</sup>：恒过 (1, 1)<span class="sep"></span>α &gt; 0 在 (0, +∞) 递增</span></li>
+</ul></div></section>
+
+<section class="card"><h3>五、三角函数与恒等变换<span class="n">16 条</span></h3><div class="body"><ul class="fl">
+<li><span class="lb">弧度制</span><span class="fm">180° = π rad<span class="sep"></span>l = |α| r<span class="sep"></span>S<sub>扇</sub> = <span class="f"><b>1</b><i>2</i></span> l r = <span class="f"><b>1</b><i>2</i></span> |α| r²</span></li>
+<li><span class="lb">同角基本关系</span><span class="fm"><b>sin²α + cos²α = 1</b><span class="sep"></span>tan α = <span class="f"><b>sin α</b><i>cos α</i></span></span></li>
+<li><span class="lb">诱导公式口诀</span><span class="fm"><u>奇变偶不变，符号看象限</u><small>对 <span class="f"><b>kπ</b><i>2</i></span> ± α，k 为奇数则函数名改变</small></span></li>
+<li><span class="lb">常用诱导</span><span class="fm">sin(π − α) = sin α<span class="sep"></span>cos(π − α) = −cos α<span class="sep"></span>sin(<span class="f"><b>π</b><i>2</i></span> − α) = cos α</span></li>
+<li><span class="lb">两角和差正弦</span><span class="fm"><b>sin(α ± β) = sin α cos β ± cos α sin β</b></span></li>
+<li><span class="lb">两角和差余弦</span><span class="fm"><b>cos(α ± β) = cos α cos β ∓ sin α sin β</b></span></li>
+<li><span class="lb">两角和差正切</span><span class="fm">tan(α ± β) = <span class="f"><b>tan α ± tan β</b><i>1 ∓ tan α tan β</i></span></span></li>
+<li><span class="lb">二倍角公式</span><span class="fm"><b>sin 2α = 2 sin α cos α</b><span class="sep"></span>tan 2α = <span class="f"><b>2 tan α</b><i>1 − tan²α</i></span></span></li>
+<li><span class="lb">余弦二倍角三形式</span><span class="fm">cos 2α = cos²α − sin²α = 2cos²α − 1 = 1 − 2sin²α</span></li>
+<li><span class="lb">降幂公式</span><span class="fm">sin²α = <span class="f"><b>1 − cos 2α</b><i>2</i></span><span class="sep"></span>cos²α = <span class="f"><b>1 + cos 2α</b><i>2</i></span></span></li>
+<li><span class="lb">辅助角公式</span><span class="fm"><b>a sin x + b cos x = √<span class="rt">a² + b²</span> · sin(x + φ)</b><small>tan φ = b / a，φ 所在象限由 a、b 符号确定</small></span></li>
+<li><span class="lb">万能公式</span><span class="fm">sin α = <span class="f"><b>2t</b><i>1 + t²</i></span>，cos α = <span class="f"><b>1 − t²</b><i>1 + t²</i></span><small>t = tan <span class="f"><b>α</b><i>2</i></span></small></span></li>
+<li><span class="lb">积化和差</span><span class="fm">sin α cos β = <span class="f"><b>1</b><i>2</i></span>[sin(α+β) + sin(α−β)]</span></li>
+<li><span class="lb">和差化积</span><span class="fm">sin α + sin β = 2 sin<span class="f"><b>α+β</b><i>2</i></span> cos<span class="f"><b>α−β</b><i>2</i></span></span></li>
+<li><span class="lb">y = A sin(ωx + φ) + k</span><span class="fm">振幅 A<span class="sep"></span>周期 T = <span class="f"><b>2π</b><i>|ω|</i></span><span class="sep"></span>相位 ωx + φ<span class="sep"></span>值域 [k − |A|, k + |A|]</span></li>
+<li><span class="lb">正切函数</span><span class="fm">y = tan x：T = π，定义域 x ≠ <span class="f"><b>π</b><i>2</i></span> + kπ</span></li>
+</ul>
+<div class="tip"><b>特殊角</b>　sin：0, <span class="f"><b>1</b><i>2</i></span>, <span class="f"><b>√<span class="rt">2</span></b><i>2</i></span>, <span class="f"><b>√<span class="rt">3</span></b><i>2</i></span>, 1 分别对应 0°, 30°, 45°, 60°, 90°；cos 逆序取值；tan 15° = 2 − √<span class="rt">3</span>，tan 75° = 2 + √<span class="rt">3</span>。</div>
+</div></section>
+
+<section class="card"><h3>六、解三角形<span class="n">6 条</span></h3><div class="body"><ul class="fl">
+<li><span class="lb">正弦定理</span><span class="fm"><b><span class="f"><b>a</b><i>sin A</i></span> = <span class="f"><b>b</b><i>sin B</i></span> = <span class="f"><b>c</b><i>sin C</i></span> = 2R</b><small>R 为外接圆半径</small></span></li>
+<li><span class="lb">正弦定理变形</span><span class="fm">a = 2R sin A<span class="sep"></span>a : b : c = sin A : sin B : sin C</span></li>
+<li><span class="lb">余弦定理</span><span class="fm"><b>a² = b² + c² − 2bc cos A</b></span></li>
+<li><span class="lb">余弦定理推论</span><span class="fm">cos A = <span class="f"><b>b² + c² − a²</b><i>2bc</i></span></span></li>
+<li><span class="lb">面积公式</span><span class="fm"><b>S = <span class="f"><b>1</b><i>2</i></span> ab sin C</b><span class="sep"></span>S = <span class="f"><b>abc</b><i>4R</i></span><span class="sep"></span>S = pr（p 为半周长，r 为内切圆半径）</span></li>
+<li><span class="lb">射影定理</span><span class="fm">a = b cos C + c cos B</span></li>
+</ul></div></section>
+
+<section class="card"><h3>七、平面向量与复数<span class="n">12 条</span></h3><div class="body"><ul class="fl">
+<li><span class="lb">向量坐标运算</span><span class="fm">a ± b = (x₁ ± x₂, y₁ ± y₂)<span class="sep"></span>λa = (λx, λy)</span></li>
+<li><span class="lb">向量的模</span><span class="fm">|a| = √<span class="rt">x² + y²</span></span></li>
+<li><span class="lb">数量积</span><span class="fm"><b>a · b = |a||b| cos θ = x₁x₂ + y₁y₂</b></span></li>
+<li><span class="lb">夹角公式</span><span class="fm">cos θ = <span class="f"><b>a · b</b><i>|a||b|</i></span></span></li>
+<li><span class="lb">垂直与平行</span><span class="fm">a ⊥ b ⇔ x₁x₂ + y₁y₂ = 0<span class="sep"></span>a ∥ b ⇔ x₁y₂ − x₂y₁ = 0</span></li>
+<li><span class="lb">投影</span><span class="fm">a 在 b 方向上的投影 = <span class="f"><b>a · b</b><i>|b|</i></span></span></li>
+<li><span class="lb">中点与重心</span><span class="fm">中点：<span class="f"><b>1</b><i>2</i></span>(a + b)<span class="sep"></span>重心 G：OG = <span class="f"><b>1</b><i>3</i></span>(OA + OB + OC)</span></li>
+<li><span class="lb">三点共线</span><span class="fm">OP = λOA + μOB 且 λ + μ = 1 ⇔ P、A、B 共线</span></li>
+<li><span class="lb">复数运算</span><span class="fm">(a + bi)(c + di) = (ac − bd) + (ad + bc)i</span></li>
+<li><span class="lb">复数除法</span><span class="fm"><span class="f"><b>a + bi</b><i>c + di</i></span> = <span class="f"><b>(a + bi)(c − di)</b><i>c² + d²</i></span><small>分母实数化</small></span></li>
+<li><span class="lb">模与共轭</span><span class="fm">|z| = √<span class="rt">a² + b²</span><span class="sep"></span>z · z̄ = |z|²<span class="sep"></span>i² = −1</span></li>
+<li><span class="lb">i 的周期</span><span class="fm">i<sup>1</sup> = i，i<sup>2</sup> = −1，i<sup>3</sup> = −i，i<sup>4</sup> = 1<small>以 4 为周期</small></span></li>
+</ul></div></section>
+
+<section class="card"><h3>八、数列<span class="n">12 条</span></h3><div class="body"><ul class="fl">
+<li><span class="lb">a<sub>n</sub> 与 S<sub>n</sub> 关系</span><span class="fm">a<sub>n</sub> = S<sub>n</sub> − S<sub>n−1</sub> (n ≥ 2)，a₁ = S₁</span></li>
+<li><span class="lb">等差通项</span><span class="fm"><b>a<sub>n</sub> = a₁ + (n − 1)d</b><span class="sep"></span>a<sub>n</sub> = a<sub>m</sub> + (n − m)d</span></li>
+<li><span class="lb">等差求和</span><span class="fm"><b>S<sub>n</sub> = <span class="f"><b>n(a₁ + a<sub>n</sub>)</b><i>2</i></span> = na₁ + <span class="f"><b>n(n−1)</b><i>2</i></span>d</b></span></li>
+<li><span class="lb">等差中项</span><span class="fm">2a<sub>n</sub> = a<sub>n−1</sub> + a<sub>n+1</sub><small>n ≥ 2</small><span class="sep"></span>若 m + n = p + q，则 a<sub>m</sub> + a<sub>n</sub> = a<sub>p</sub> + a<sub>q</sub></span></li>
+<li><span class="lb">等比通项</span><span class="fm"><b>a<sub>n</sub> = a₁q<sup>n−1</sup></b><span class="sep"></span>a<sub>n</sub> = a<sub>m</sub>q<sup>n−m</sup></span></li>
+<li><span class="lb">等比求和</span><span class="fm"><b>S<sub>n</sub> = <span class="f"><b>a₁(1 − q<sup>n</sup>)</b><i>1 − q</i></span></b> (q ≠ 1)<span class="sep"></span>q = 1 时 S<sub>n</sub> = na₁</span></li>
+<li><span class="lb">等比中项</span><span class="fm">a<sub>n</sub>² = a<sub>n−1</sub> · a<sub>n+1</sub><small>n ≥ 2</small></span></li>
+<li><span class="lb">无穷等比和</span><span class="fm">S = <span class="f"><b>a₁</b><i>1 − q</i></span><small>|q| &lt; 1</small></span></li>
+<li><span class="lb">自然数求和</span><span class="fm">1 + 2 + … + n = <span class="f"><b>n(n+1)</b><i>2</i></span></span></li>
+<li><span class="lb">平方和 · 立方和</span><span class="fm">Σk² = <span class="f"><b>n(n+1)(2n+1)</b><i>6</i></span><span class="sep"></span>Σk³ = [<span class="f"><b>n(n+1)</b><i>2</i></span>]²</span></li>
+<li><span class="lb">裂项相消</span><span class="fm"><span class="f"><b>1</b><i>n(n+1)</i></span> = <span class="f"><b>1</b><i>n</i></span> − <span class="f"><b>1</b><i>n+1</i></span><span class="sep"></span><span class="f"><b>1</b><i>n(n+k)</i></span> = <span class="f"><b>1</b><i>k</i></span>(<span class="f"><b>1</b><i>n</i></span> − <span class="f"><b>1</b><i>n+k</i></span>)</span></li>
+<li><span class="lb">错位相减</span><span class="fm">适用于 {a<sub>n</sub>b<sub>n</sub>}，其中 {a<sub>n</sub>} 等差、{b<sub>n</sub>} 等比<small>S<sub>n</sub> − qS<sub>n</sub> 再求和</small></span></li>
+</ul></div></section>
+
+<section class="card"><h3>九、立体几何<span class="n">11 条</span></h3><div class="body"><ul class="fl">
+<li><span class="lb">柱体体积</span><span class="fm">V = S h</span></li>
+<li><span class="lb">锥体体积</span><span class="fm">V = <span class="f"><b>1</b><i>3</i></span> S h</span></li>
+<li><span class="lb">台体体积</span><span class="fm">V = <span class="f"><b>1</b><i>3</i></span> h (S + √<span class="rt">S S′</span> + S′)</span></li>
+<li><span class="lb">球</span><span class="fm"><b>S = 4πR²<span class="sep"></span>V = <span class="f"><b>4</b><i>3</i></span> πR³</b></span></li>
+<li><span class="lb">圆柱 · 圆锥表面积</span><span class="fm">圆柱 S = 2πr(r + h)<span class="sep"></span>圆锥 S = πr(r + l)</span></li>
+<li><span class="lb">线面平行判定</span><span class="fm">平面外一条直线与平面内一条直线平行 ⇒ 线面平行</span></li>
+<li><span class="lb">线面垂直判定</span><span class="fm">直线垂直于平面内两条相交直线 ⇒ 线面垂直</span></li>
+<li><span class="lb">面面垂直判定</span><span class="fm">一个平面过另一个平面的垂线 ⇒ 面面垂直</span></li>
+<li><span class="lb">空间向量夹角</span><span class="fm">cos⟨a, b⟩ = <span class="f"><b>a · b</b><i>|a||b|</i></span><small>a · b = x₁x₂ + y₁y₂ + z₁z₂</small></span></li>
+<li><span class="lb">线面角 · 二面角</span><span class="fm">sin θ = |cos⟨a, n⟩|（线面角）<span class="sep"></span>|cos θ| = |cos⟨n₁, n₂⟩|（二面角）</span></li>
+<li><span class="lb">点到平面距离</span><span class="fm">d = <span class="f"><b>|AP · n|</b><i>|n|</i></span><small>n 为平面法向量</small></span></li>
+</ul></div></section>
+
+<section class="card"><h3>十、直线与圆<span class="n">10 条</span></h3><div class="body"><ul class="fl">
+<li><span class="lb">斜率</span><span class="fm">k = tan α = <span class="f"><b>y₂ − y₁</b><i>x₂ − x₁</i></span></span></li>
+<li><span class="lb">直线方程</span><span class="fm">点斜式 y − y₀ = k(x − x₀)<span class="sep"></span>斜截式 y = kx + b<span class="sep"></span>一般式 Ax + By + C = 0</span></li>
+<li><span class="lb">平行与垂直</span><span class="fm">l₁ ∥ l₂ ⇔ k₁ = k₂<span class="sep"></span>l₁ ⊥ l₂ ⇔ k₁k₂ = −1<small>平行需两直线不重合</small></span></li>
+<li><span class="lb">两点距离</span><span class="fm">|AB| = √<span class="rt">(x₂−x₁)² + (y₂−y₁)²</span></span></li>
+<li><span class="lb">点到直线距离</span><span class="fm"><b>d = <span class="f"><b>|Ax₀ + By₀ + C|</b><i>√<span class="rt">A² + B²</span></i></span></b></span></li>
+<li><span class="lb">平行线间距离</span><span class="fm">d = <span class="f"><b>|C₁ − C₂|</b><i>√<span class="rt">A² + B²</span></i></span></span></li>
+<li><span class="lb">圆的标准方程</span><span class="fm">(x − a)² + (y − b)² = r²</span></li>
+<li><span class="lb">圆的一般方程</span><span class="fm">x² + y² + Dx + Ey + F = 0<span class="sep"></span>圆心 (−<span class="f"><b>D</b><i>2</i></span>, −<span class="f"><b>E</b><i>2</i></span>)，r = <span class="f"><b>1</b><i>2</i></span>√<span class="rt">D² + E² − 4F</span><small>需 D² + E² − 4F &gt; 0</small></span></li>
+<li><span class="lb">弦长公式</span><span class="fm">|AB| = 2√<span class="rt">r² − d²</span></span></li>
+<li><span class="lb">直线截圆锥曲线弦长</span><span class="fm">|AB| = √<span class="rt">1 + k²</span> · |x₁ − x₂| = √<span class="rt">1 + k²</span> · <span class="f"><b>√<span class="rt">Δ</span></b><i>|a|</i></span></span></li>
+</ul></div></section>
+
+<section class="card"><h3>十一、圆锥曲线<span class="n">11 条</span></h3><div class="body"><ul class="fl">
+<li><span class="lb">椭圆标准方程</span><span class="fm"><b><span class="f"><b>x²</b><i>a²</i></span> + <span class="f"><b>y²</b><i>b²</i></span> = 1</b><small>a &gt; b &gt; 0，焦点在 x 轴</small></span></li>
+<li><span class="lb">椭圆 a b c 关系</span><span class="fm">a² = b² + c²<span class="sep"></span>离心率 e = <span class="f"><b>c</b><i>a</i></span> ∈ (0, 1)</span></li>
+<li><span class="lb">椭圆定义</span><span class="fm">|PF₁| + |PF₂| = 2a<small>2a &gt; |F₁F₂|</small></span></li>
+<li><span class="lb">双曲线标准方程</span><span class="fm"><b><span class="f"><b>x²</b><i>a²</i></span> − <span class="f"><b>y²</b><i>b²</i></span> = 1</b></span></li>
+<li><span class="lb">双曲线 a b c 关系</span><span class="fm">c² = a² + b²<span class="sep"></span>e = <span class="f"><b>c</b><i>a</i></span> &gt; 1</span></li>
+<li><span class="lb">双曲线定义与渐近线</span><span class="fm">||PF₁| − |PF₂|| = 2a<span class="sep"></span>渐近线 y = ± <span class="f"><b>b</b><i>a</i></span> x</span></li>
+<li><span class="lb">抛物线标准方程</span><span class="fm"><b>y² = 2px</b> (p &gt; 0)<span class="sep"></span>焦点 (<span class="f"><b>p</b><i>2</i></span>, 0)，准线 x = −<span class="f"><b>p</b><i>2</i></span></span></li>
+<li><span class="lb">抛物线定义</span><span class="fm">到焦点距离 = 到准线距离<span class="sep"></span>e = 1</span></li>
+<li><span class="lb">抛物线焦半径</span><span class="fm">|PF| = x₀ + <span class="f"><b>p</b><i>2</i></span></span></li>
+<li><span class="lb">抛物线焦点弦</span><span class="fm">|AB| = x₁ + x₂ + p<span class="sep"></span>通径长 = 2p</span></li>
+<li><span class="lb">点差法（中点弦）</span><span class="fm">椭圆中：k<sub>AB</sub> · k<sub>OM</sub> = −<span class="f"><b>b²</b><i>a²</i></span><small>M 为弦 AB 中点</small></span></li>
+</ul></div></section>
+
+<section class="card"><h3>十二、导数与积分<span class="n">14 条</span></h3><div class="body"><ul class="fl">
+<li><span class="lb">导数定义</span><span class="fm">f′(x) = lim<sub>Δx→0</sub> <span class="f"><b>f(x + Δx) − f(x)</b><i>Δx</i></span></span></li>
+<li><span class="lb">几何意义</span><span class="fm">f′(x₀) = 曲线在 x₀ 处切线的斜率<span class="sep"></span>切线：y − f(x₀) = f′(x₀)(x − x₀)</span></li>
+<li><span class="lb">常数与幂函数</span><span class="fm">C′ = 0<span class="sep"></span>(x<sup>n</sup>)′ = n x<sup>n−1</sup></span></li>
+<li><span class="lb">三角函数导数</span><span class="fm">(sin x)′ = cos x<span class="sep"></span>(cos x)′ = −sin x</span></li>
+<li><span class="lb">指数函数导数</span><span class="fm">(e<sup>x</sup>)′ = e<sup>x</sup><span class="sep"></span>(a<sup>x</sup>)′ = a<sup>x</sup> ln a</span></li>
+<li><span class="lb">对数函数导数</span><span class="fm">(ln x)′ = <span class="f"><b>1</b><i>x</i></span><span class="sep"></span>(log<sub>a</sub>x)′ = <span class="f"><b>1</b><i>x ln a</i></span></span></li>
+<li><span class="lb">和差法则</span><span class="fm">(u ± v)′ = u′ ± v′</span></li>
+<li><span class="lb">乘积法则</span><span class="fm"><b>(uv)′ = u′v + uv′</b></span></li>
+<li><span class="lb">商的法则</span><span class="fm">(<span class="f"><b>u</b><i>v</i></span>)′ = <span class="f"><b>u′v − uv′</b><i>v²</i></span></span></li>
+<li><span class="lb">复合函数求导</span><span class="fm">y′<sub>x</sub> = y′<sub>u</sub> · u′<sub>x</sub><small>链式法则</small></span></li>
+<li><span class="lb">单调性判定</span><span class="fm">f′(x) &gt; 0 ⇒ 递增<span class="sep"></span>f′(x) &lt; 0 ⇒ 递减</span></li>
+<li><span class="lb">极值判定</span><span class="fm">f′(x₀) = 0 且左右导数变号<span class="sep"></span>左正右负为极大值，左负右正为极小值</span></li>
+<li><span class="lb">牛顿-莱布尼茨公式</span><span class="fm">∫<sub>a</sub><sup>b</sup> f(x) dx = F(b) − F(a)<small>F′(x) = f(x)</small></span></li>
+<li><span class="lb">常用不等式</span><span class="fm">e<sup>x</sup> ≥ x + 1<span class="sep"></span>ln x ≤ x − 1<small>当且仅当 x = 0（或 x = 1）取等</small></span></li>
+</ul>
+<div class="tip"><b>注意</b>　f′(x₀) = 0 只是极值的必要条件，不充分（如 y = x³ 在 0 处导数为 0 但无极值）。</div>
+</div></section>
+
+<section class="card"><h3>十三、计数原理与二项式定理<span class="n">8 条</span></h3><div class="body"><ul class="fl">
+<li><span class="lb">分类加法原理</span><span class="fm">N = m₁ + m₂ + … + m<sub>n</sub><small>各类方法独立完成任务</small></span></li>
+<li><span class="lb">分步乘法原理</span><span class="fm">N = m₁ × m₂ × … × m<sub>n</sub></span></li>
+<li><span class="lb">排列数</span><span class="fm"><b>A<sub>n</sub><sup>m</sup> = n(n−1)…(n−m+1) = <span class="f"><b>n!</b><i>(n − m)!</i></span></b></span></li>
+<li><span class="lb">组合数</span><span class="fm"><b>C<sub>n</sub><sup>m</sup> = <span class="f"><b>A<sub>n</sub><sup>m</sup></b><i>m!</i></span> = <span class="f"><b>n!</b><i>m!(n − m)!</i></span></b></span></li>
+<li><span class="lb">组合数性质</span><span class="fm">C<sub>n</sub><sup>m</sup> = C<sub>n</sub><sup>n−m</sup><span class="sep"></span>C<sub>n+1</sub><sup>m</sup> = C<sub>n</sub><sup>m</sup> + C<sub>n</sub><sup>m−1</sup></span></li>
+<li><span class="lb">二项式定理</span><span class="fm"><b>(a + b)<sup>n</sup> = Σ<sub>k=0</sub><sup>n</sup> C<sub>n</sub><sup>k</sup> a<sup>n−k</sup> b<sup>k</sup></b></span></li>
+<li><span class="lb">通项公式</span><span class="fm">T<sub>k+1</sub> = C<sub>n</sub><sup>k</sup> a<sup>n−k</sup> b<sup>k</sup><small>第 k+1 项</small></span></li>
+<li><span class="lb">系数和</span><span class="fm">各项二项式系数和 = 2<sup>n</sup><span class="sep"></span>令 x = 1 得各项系数和<span class="sep"></span>奇、偶数项<b>二项式系数</b>和均为 2<sup>n−1</sup></span></li>
+</ul></div></section>
+
+<section class="card"><h3>十四、概率与统计<span class="n">14 条</span></h3><div class="body"><ul class="fl">
+<li><span class="lb">古典概型</span><span class="fm">P(A) = <span class="f"><b>A 包含的基本事件数</b><i>基本事件总数</i></span></span></li>
+<li><span class="lb">互斥与对立</span><span class="fm">互斥：P(A ∪ B) = P(A) + P(B)<span class="sep"></span>对立：P(Ā) = 1 − P(A)</span></li>
+<li><span class="lb">相互独立</span><span class="fm">P(AB) = P(A) · P(B)</span></li>
+<li><span class="lb">条件概率</span><span class="fm"><b>P(B | A) = <span class="f"><b>P(AB)</b><i>P(A)</i></span></b><small>P(A) &gt; 0</small></span></li>
+<li><span class="lb">全概率公式</span><span class="fm">P(B) = Σ P(A<sub>i</sub>) P(B | A<sub>i</sub>)</span></li>
+<li><span class="lb">贝叶斯公式</span><span class="fm">P(A<sub>i</sub> | B) = <span class="f"><b>P(A<sub>i</sub>) P(B | A<sub>i</sub>)</b><i>P(B)</i></span></span></li>
+<li><span class="lb">数学期望</span><span class="fm">E(X) = Σ x<sub>i</sub> p<sub>i</sub><span class="sep"></span>E(aX + b) = aE(X) + b</span></li>
+<li><span class="lb">方差</span><span class="fm"><b>D(X) = E(X²) − [E(X)]²</b><span class="sep"></span>D(aX + b) = a² D(X)</span></li>
+<li><span class="lb">两点分布</span><span class="fm">E(X) = p<span class="sep"></span>D(X) = p(1 − p)</span></li>
+<li><span class="lb">二项分布 X ~ B(n, p)</span><span class="fm">P(X = k) = C<sub>n</sub><sup>k</sup> p<sup>k</sup>(1−p)<sup>n−k</sup><span class="sep"></span><b>E(X) = np，D(X) = np(1−p)</b></span></li>
+<li><span class="lb">超几何分布</span><span class="fm">P(X = k) = <span class="f"><b>C<sub>M</sub><sup>k</sup> C<sub>N−M</sub><sup>n−k</sup></b><i>C<sub>N</sub><sup>n</sup></i></span><small>不放回抽样</small></span></li>
+<li><span class="lb">正态分布 N(μ, σ²)</span><span class="fm">P(μ−σ &lt; X ≤ μ+σ) ≈ 0.6827<span class="sep"></span>2σ ≈ 0.9545<span class="sep"></span>3σ ≈ 0.9973</span></li>
+<li><span class="lb">线性回归方程</span><span class="fm">ŷ = b̂x + â<span class="sep"></span>b̂ = <span class="f"><b>Σ(x<sub>i</sub> − x̄)(y<sub>i</sub> − ȳ)</b><i>Σ(x<sub>i</sub> − x̄)²</i></span>，â = ȳ − b̂x̄<small>回归直线过 (x̄, ȳ)</small></span></li>
+<li><span class="lb">独立性检验</span><span class="fm">χ² = <span class="f"><b>n(ad − bc)²</b><i>(a+b)(c+d)(a+c)(b+d)</i></span><small>χ² &gt; 3.841 时有 95% 把握认为相关</small></span></li>
+</ul>
+<div class="tip"><b>百分位数</b>　将数据从小到大排列，第 p 百分位数位置 i = n × p%；i 不是整数则向上取整对应的数，i 是整数则取第 i 与 i+1 项的平均数。</div>
+</div></section>
+
+<section class="card"><h3>十五、常用二级结论（选填提速）<span class="n">14 条</span></h3><div class="body"><ul class="fl">
+<li><span class="lb">椭圆焦点三角形面积</span><span class="fm"><b>S = b² tan <span class="f"><b>θ</b><i>2</i></span></b><small>θ = ∠F₁PF₂</small></span></li>
+<li><span class="lb">双曲线焦点三角形面积</span><span class="fm">S = <span class="f"><b>b²</b><i>tan(θ/2)</i></span></span></li>
+<li><span class="lb">抛物线焦点弦</span><span class="fm">x₁x₂ = <span class="f"><b>p²</b><i>4</i></span><span class="sep"></span>y₁y₂ = −p²<span class="sep"></span><span class="f"><b>1</b><i>|AF|</i></span> + <span class="f"><b>1</b><i>|BF|</i></span> = <span class="f"><b>2</b><i>p</i></span></span></li>
+<li><span class="lb">抛物线焦点弦长</span><span class="fm">|AB| = <span class="f"><b>2p</b><i>sin²θ</i></span><small>θ 为弦的倾斜角</small></span></li>
+<li><span class="lb">椭圆通径 · 双曲线通径</span><span class="fm">通径长 = <span class="f"><b>2b²</b><i>a</i></span></span></li>
+<li><span class="lb">三角形四心的向量刻画</span><span class="fm">重心：GA + GB + GC = 0<span class="sep"></span>外心：|OA| = |OB| = |OC|<span class="sep"></span>垂心：HA·HB = HB·HC</span></li>
+<li><span class="lb">三角形内角恒等式</span><span class="fm">A + B + C = π 时：tan A + tan B + tan C = tan A · tan B · tan C</span></li>
+<li><span class="lb">正四面体（棱长 a）</span><span class="fm">外接球 R = <span class="f"><b>√<span class="rt">6</span></b><i>4</i></span> a<span class="sep"></span>内切球 r = <span class="f"><b>√<span class="rt">6</span></b><i>12</i></span> a<span class="sep"></span>高 h = <span class="f"><b>√<span class="rt">6</span></b><i>3</i></span> a</span></li>
+<li><span class="lb">长方体外接球</span><span class="fm">2R = √<span class="rt">a² + b² + c²</span><small>墙角模型：三条棱两两垂直即可用</small></span></li>
+<li><span class="lb">奇函数平移型最值</span><span class="fm">若 f(x) = g(x) + c 且 g 为奇函数，则 <b>f<sub>max</sub> + f<sub>min</sub> = 2c</b></span></li>
+<li><span class="lb">对称性推周期</span><span class="fm">图象关于 x = a 与 x = b 对称 ⇒ T = 2|a − b|<span class="sep"></span>一轴一心 ⇒ T = 4|a − b|</span></li>
+<li><span class="lb">常用放缩</span><span class="fm">e<sup>x</sup> ≥ x + 1<span class="sep"></span>ln x ≤ x − 1<span class="sep"></span><span class="f"><b>x</b><i>1 + x</i></span> ≤ ln(1 + x) ≤ x<small>x &gt; −1</small></span></li>
+<li><span class="lb">三角函数放缩</span><span class="fm">sin x &lt; x &lt; tan x<small>0 &lt; x &lt; π/2</small></span></li>
+<li><span class="lb">二项式系数最大项</span><span class="fm">n 为偶数时中间一项 C<sub>n</sub><sup>n/2</sup> 最大<span class="sep"></span>n 为奇数时中间两项相等且最大</span></li>
+</ul>
+<div class="tip"><b>提醒</b>　二级结论只建议用在选择填空。解答题仍需按课本定理书写完整推导，直接引用可能被扣步骤分。</div>
+</div></section>
+
+<section class="card"><h3>十六、递推数列求通项<span class="n">7 条</span></h3><div class="body"><ul class="fl">
+<li><span class="lb">累加法</span><span class="fm">a<sub>n+1</sub> − a<sub>n</sub> = f(n) ⇒ a<sub>n</sub> = a₁ + Σ<sub>k=1</sub><sup>n−1</sup> f(k)</span></li>
+<li><span class="lb">累乘法</span><span class="fm"><span class="f"><b>a<sub>n+1</sub></b><i>a<sub>n</sub></i></span> = f(n) ⇒ a<sub>n</sub> = a₁ · f(1)f(2)…f(n−1)</span></li>
+<li><span class="lb">构造等比（一阶线性）</span><span class="fm">a<sub>n+1</sub> = p a<sub>n</sub> + q (p ≠ 1) ⇒ <b>{a<sub>n</sub> + <span class="f"><b>q</b><i>p − 1</i></span>} 成等比</b>，公比 p</span></li>
+<li><span class="lb">除以指数项</span><span class="fm">a<sub>n+1</sub> = p a<sub>n</sub> + q<sup>n</sup> ⇒ 两边同除 q<sup>n+1</sup>，转化为一阶线性</span></li>
+<li><span class="lb">取倒数</span><span class="fm">a<sub>n+1</sub> = <span class="f"><b>p a<sub>n</sub></b><i>q a<sub>n</sub> + r</i></span> ⇒ 令 b<sub>n</sub> = <span class="f"><b>1</b><i>a<sub>n</sub></i></span> 转化为线性递推</span></li>
+<li><span class="lb">取对数</span><span class="fm">a<sub>n+1</sub> = a<sub>n</sub><sup>k</sup> ⇒ 两边取对数，{lg a<sub>n</sub>} 成等比</span></li>
+<li><span class="lb">由 S<sub>n</sub> 求 a<sub>n</sub></span><span class="fm">a<sub>n</sub> = S<sub>n</sub> − S<sub>n−1</sub> (n ≥ 2)，再<u>单独验证 n = 1</u> 是否符合</span></li>
+</ul></div></section>
+</section>
+
+<!-- ================= 附录 ================= -->
+<section class="stage-blk" id="s4">
+<div class="stage-head"><h2>附录</h2><span class="yr">REFERENCE</span><span class="note">符号 · 字母 · 常用数据</span></div>
+
+<section class="card"><h3>一、数学符号速查<span class="n">10 组</span></h3><div class="body"><ul class="fl">
+<li><span class="lb">集合</span><span class="fm">∈ 属于<span class="sep"></span>∉ 不属于<span class="sep"></span>⊆ 子集<span class="sep"></span>⊊ 真子集<span class="sep"></span>∪ 并<span class="sep"></span>∩ 交<span class="sep"></span>∅ 空集</span></li>
+<li><span class="lb">逻辑</span><span class="fm">∀ 任意<span class="sep"></span>∃ 存在<span class="sep"></span>⇒ 推出<span class="sep"></span>⇔ 等价<span class="sep"></span>¬ 否定<span class="sep"></span>∵ 因为<span class="sep"></span>∴ 所以</span></li>
+<li><span class="lb">比较</span><span class="fm">≠ 不等于<span class="sep"></span>≈ 约等于<span class="sep"></span>≤ 小于等于<span class="sep"></span>≥ 大于等于<span class="sep"></span>∝ 正比于</span></li>
+<li><span class="lb">运算</span><span class="fm">± 正负<span class="sep"></span>∑ 求和<span class="sep"></span>∏ 求积<span class="sep"></span>∫ 积分<span class="sep"></span>lim 极限<span class="sep"></span>n! 阶乘<span class="sep"></span>|a| 绝对值</span></li>
+<li><span class="lb">几何</span><span class="fm">∠ 角<span class="sep"></span>△ 三角形<span class="sep"></span>⊙ 圆<span class="sep"></span>∥ 平行<span class="sep"></span>⊥ 垂直<span class="sep"></span>≌ 全等<span class="sep"></span>∽ 相似<span class="sep"></span>⌒ 弧</span></li>
+<li><span class="lb">数集</span><span class="fm">N 自然数<span class="sep"></span>N* 正整数<span class="sep"></span>Z 整数<span class="sep"></span>Q 有理数<span class="sep"></span>R 实数<span class="sep"></span>C 复数</span></li>
+<li><span class="lb">区间</span><span class="fm">[a, b] 闭区间<span class="sep"></span>(a, b) 开区间<span class="sep"></span>[a, b) 半开<span class="sep"></span>(−∞, +∞) 全体实数</span></li>
+<li><span class="lb">排列组合</span><span class="fm">A<sub>n</sub><sup>m</sup> 排列数<span class="sep"></span>C<sub>n</sub><sup>m</sup> 组合数<span class="sep"></span>n! = 1×2×…×n<span class="sep"></span>0! = 1</span></li>
+<li><span class="lb">统计</span><span class="fm">x̄ 平均数<span class="sep"></span>s² 方差<span class="sep"></span>σ 标准差<span class="sep"></span>E(X) 期望<span class="sep"></span>D(X) 方差<span class="sep"></span>ŷ 回归预测值</span></li>
+<li><span class="lb">取整</span><span class="fm">⌊x⌋ 向下取整<span class="sep"></span>⌈x⌉ 向上取整<span class="sep"></span>(a, b) 最大公因数<span class="sep"></span>[a, b] 最小公倍数</span></li>
+</ul></div></section>
+
+<section class="card"><h3>二、希腊字母<span class="n">6 组</span></h3><div class="body"><ul class="fl">
+<li><span class="lb">常见于角与参数</span><span class="fm">α 阿尔法<span class="sep"></span>β 贝塔<span class="sep"></span>γ 伽马<span class="sep"></span>θ 西塔<span class="sep"></span>φ 斐<span class="sep"></span>ω 欧米伽</span></li>
+<li><span class="lb">常见于增量与判别式</span><span class="fm">Δ 德尔塔（增量、判别式）<span class="sep"></span>δ 小德尔塔</span></li>
+<li><span class="lb">常见于求和与统计</span><span class="fm">Σ 西格玛（求和）<span class="sep"></span>σ 小西格玛（标准差）<span class="sep"></span>μ 缪（均值）</span></li>
+<li><span class="lb">常见于常数</span><span class="fm">π 派 ≈ 3.14159<span class="sep"></span>λ 拉姆达（系数、特征值）</span></li>
+<li><span class="lb">常见于连乘与角</span><span class="fm">Π 大派（连乘）<span class="sep"></span>ρ 柔（极坐标半径）<span class="sep"></span>ε 艾普西龙（无穷小）</span></li>
+<li><span class="lb">其他</span><span class="fm">ξ 克西<span class="sep"></span>η 伊塔<span class="sep"></span>τ 陶<span class="sep"></span>χ 卡方（χ²）<span class="sep"></span>Ω 欧米伽</span></li>
+</ul></div></section>
+
+<section class="card"><h3>三、常用数据与近似值<span class="n">8 组</span></h3><div class="body"><ul class="fl">
+<li><span class="lb">平方数 11–20</span><span class="fm">121 · 144 · 169 · 196 · 225 · 256 · 289 · 324 · 361 · 400</span></li>
+<li><span class="lb">平方数 21–25</span><span class="fm">441 · 484 · 529 · 576 · 625</span></li>
+<li><span class="lb">立方数 1–10</span><span class="fm">1 · 8 · 27 · 64 · 125 · 216 · 343 · 512 · 729 · 1000</span></li>
+<li><span class="lb">2 的幂</span><span class="fm">2 4 8 16 32 64 128 256 512 1024 2048 4096</span></li>
+<li><span class="lb">常用根号值</span><span class="fm">√<span class="rt">2</span> ≈ 1.414<span class="sep"></span>√<span class="rt">3</span> ≈ 1.732<span class="sep"></span>√<span class="rt">5</span> ≈ 2.236<span class="sep"></span>√<span class="rt">6</span> ≈ 2.449<span class="sep"></span>√<span class="rt">7</span> ≈ 2.646</span></li>
+<li><span class="lb">常数</span><span class="fm">π ≈ 3.14159<span class="sep"></span>e ≈ 2.71828<span class="sep"></span>黄金比 <span class="f"><b>√<span class="rt">5</span> − 1</b><i>2</i></span> ≈ 0.618</span></li>
+<li><span class="lb">常用对数值</span><span class="fm">lg 2 ≈ 0.3010<span class="sep"></span>lg 3 ≈ 0.4771<span class="sep"></span>ln 2 ≈ 0.693<span class="sep"></span>ln 3 ≈ 1.099<span class="sep"></span>ln 10 ≈ 2.303</span></li>
+<li><span class="lb">角度与弧度</span><span class="fm">30° = <span class="f"><b>π</b><i>6</i></span><span class="sep"></span>45° = <span class="f"><b>π</b><i>4</i></span><span class="sep"></span>60° = <span class="f"><b>π</b><i>3</i></span><span class="sep"></span>90° = <span class="f"><b>π</b><i>2</i></span><span class="sep"></span>180° = π<span class="sep"></span>1 rad ≈ 57.3°</span></li>
+</ul></div></section>
+</section>
+
+</main>
+</div>
+
+<footer class="foot">
+  数学公式大全 · 一年级 — 高三　|　按人教版课程标准整理，覆盖小学、初中、高中三个学段<br>
+  单文件离线可用 · 可直接打印或另存为 PDF · 公式以教材表述为准，具体版本略有差异
+</footer>
+
+<button class="up" id="up" type="button" title="回到顶部">↑</button>
+
+<script>
+(function(){
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.card'));
+  var stages = Array.prototype.slice.call(document.querySelectorAll('.stage-blk'));
+  var ruler = document.getElementById('ruler');
+  var q = document.getElementById('q');
+  var cnt = document.getElementById('cnt');
+  var main = document.getElementById('main');
+  var topEl = document.querySelector('.top');
+
+  /* ---- 移动端适配：把顶栏真实高度写进 --topH ----
+     顶栏高度会随屏幕宽度、方向、搜索框是否换行而变化，
+     写成 CSS 变量后，sticky 导航定位、锚点跳转偏移都能自动跟上。 */
+  var topH = 88;
+  function syncTopH(){
+    if (!topEl) return;
+    var h = Math.round(topEl.getBoundingClientRect().height);
+    if (h && h !== topH){
+      topH = h;
+      document.documentElement.style.setProperty('--topH', h + 'px');
+    }
+  }
+  syncTopH();
+  if (window.ResizeObserver){
+    new ResizeObserver(syncTopH).observe(topEl);
+  } else {
+    window.addEventListener('resize', syncTopH);
+  }
+  /* 方向切换后浏览器需要一帧才报出新尺寸 */
+  window.addEventListener('orientationchange', function(){
+    setTimeout(syncTopH, 60); setTimeout(syncTopH, 350);
+  });
+
+  /* 窄屏换用短提示语，避免被右侧条数计数挤掉 */
+  function syncPlaceholder(){
+    q.placeholder = window.innerWidth < 560
+      ? '搜公式：梯形、韦达、导数…'
+      : '搜公式：梯形、韦达、二倍角、导数、方差…';
+  }
+  syncPlaceholder();
+  window.addEventListener('resize', syncPlaceholder);
+
+  /* 统计条数 + 生成锚点 */
+  var total = 0;
+  cards.forEach(function(c, i){
+    c.id = 'c' + i;
+    var n = c.querySelectorAll('.fl li').length;
+    total += n;
+    var tag = c.querySelector('h3 .n');
+    if (tag) tag.textContent = n + (tag.textContent.indexOf('组') > -1 ? ' 组' : ' 条');
+  });
+
+  /* 生成刻度尺导航 */
+  stages.forEach(function(st){
+    var box = document.createElement('div');
+    box.className = 'stage';
+    var t = document.createElement('span');
+    t.textContent = st.querySelector('h2').textContent;
+    box.appendChild(t);
+    st.querySelectorAll('.card').forEach(function(c){
+      var a = document.createElement('a');
+      a.href = '#' + c.id;
+      a.textContent = c.querySelector('h3').firstChild.textContent.trim();
+      box.appendChild(a);
+    });
+    ruler.appendChild(box);
+  });
+  var links = Array.prototype.slice.call(ruler.querySelectorAll('a'));
+
+  cnt.textContent = total + ' 条';
+
+  /* 点击导航：展开并滚动 */
+  links.forEach(function(a){
+    a.addEventListener('click', function(){
+      var c = document.querySelector(a.getAttribute('href'));
+      if (c){ c.classList.add('open'); syncAria(); }
+    });
+  });
+
+  /* 折叠 / 展开（支持键盘） */
+  function syncAria(){
+    cards.forEach(function(c){
+      c.querySelector('h3').setAttribute('aria-expanded', c.classList.contains('open') ? 'true' : 'false');
+    });
+  }
+  cards.forEach(function(c){
+    var h = c.querySelector('h3');
+    h.setAttribute('role', 'button');
+    h.setAttribute('tabindex', '0');
+    h.addEventListener('click', function(){ c.classList.toggle('open'); syncAria(); });
+    h.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); c.classList.toggle('open'); syncAria(); }
+    });
+  });
+  syncAria();
+
+  var expandBtn = document.getElementById('expand');
+  expandBtn.addEventListener('click', function(){
+    var allOpen = cards.every(function(c){ return c.classList.contains('open'); });
+    cards.forEach(function(c){ c.classList.toggle('open', !allOpen); });
+    expandBtn.textContent = allOpen ? '全部展开' : '全部收起';
+    syncAria();
+  });
+
+  document.getElementById('print').addEventListener('click', function(){
+    cards.forEach(function(c){ c.classList.add('open'); });
+    expandBtn.textContent = '全部收起';
+    syncAria();
+    window.print();
+  });
+
+  /* 搜索：过滤条目 + 高亮 */
+  var empty = document.createElement('div');
+  empty.className = 'empty';
+  empty.innerHTML = '<b>没有找到这个公式</b>换个说法试试，比如「面积」「韦达」「二倍角」';
+  main.appendChild(empty);
+
+  function clearMark(li){
+    li.querySelectorAll('mark').forEach(function(m){
+      m.replaceWith(document.createTextNode(m.textContent));
+    });
+    li.normalize();
+  }
+  function markIn(node, kw){
+    Array.prototype.slice.call(node.childNodes).forEach(function(n){
+      if (n.nodeType === 3){
+        var i = n.nodeValue.toLowerCase().indexOf(kw);
+        if (i > -1){
+          var m = document.createElement('mark');
+          var mid = n.splitText(i);
+          mid.splitText(kw.length);
+          m.textContent = mid.nodeValue;
+          mid.replaceWith(m);
+        }
+      } else if (n.nodeType === 1 && n.tagName !== 'MARK'){
+        markIn(n, kw);
+      }
+    });
+  }
+
+  /* 当前是否为「芯片式」横向导航（手机断点下 .ruler 变成 flex 行） */
+  function isChipNav(){
+    return getComputedStyle(ruler).position === 'static';
+  }
+
+  var timer;
+  q.addEventListener('input', function(){
+    clearTimeout(timer);
+    timer = setTimeout(run, 120);
+  });
+
+  function run(){
+    var kw = q.value.trim().toLowerCase();
+    var hits = 0;
+    cards.forEach(function(c){
+      var shown = 0;
+      c.querySelectorAll('.fl li').forEach(function(li){
+        clearMark(li);
+        if (!kw){ li.style.display = ''; return; }
+        var hit = li.textContent.toLowerCase().indexOf(kw) > -1;
+        li.style.display = hit ? '' : 'none';
+        if (hit){ shown++; markIn(li, kw); }
+      });
+      var titleHit = kw && c.querySelector('h3').textContent.toLowerCase().indexOf(kw) > -1;
+      if (!kw){
+        c.style.display = '';
+        c.querySelectorAll('.tip').forEach(function(t){ t.style.display = ''; });
+      } else {
+        /* 标题命中但没有条目命中时，把整卡条目全部显示并计入匹配数
+           （如搜「希腊」「符号速查」「奥数」这类分类名） */
+        if (titleHit && !shown){
+          var all = c.querySelectorAll('.fl li');
+          all.forEach(function(li){ li.style.display = ''; });
+          shown = all.length;
+        }
+        c.style.display = (shown || titleHit) ? '' : 'none';
+        c.classList.toggle('open', !!(shown || titleHit));
+        c.querySelectorAll('.tip').forEach(function(t){ t.style.display = 'none'; });
+      }
+      hits += shown;
+    });
+    syncAria();
+    stages.forEach(function(st){
+      var any = Array.prototype.slice.call(st.querySelectorAll('.card'))
+        .some(function(c){ return c.style.display !== 'none'; });
+      st.style.display = (kw && !any) ? 'none' : '';
+    });
+    empty.style.display = (kw && hits === 0) ? 'block' : 'none';
+    cnt.textContent = kw ? (hits + ' 条匹配') : (total + ' 条');
+    if (!kw) expandBtn.textContent = '全部展开';
+  }
+
+  /* 滚动高亮当前章节 */
+  var ticking = false;
+  window.addEventListener('scroll', function(){
+    document.getElementById('up').style.display = window.scrollY > 500 ? 'block' : 'none';
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function(){
+      /* 偏移量跟随顶栏实际高度，手机横屏（顶栏 ~52px）与桌面（~88px）都能对准 */
+      var y = window.scrollY + topH + 52, cur = null;
+      cards.forEach(function(c){
+        if (c.style.display !== 'none' && c.offsetTop <= y) cur = c.id;
+      });
+      links.forEach(function(a){
+        a.classList.toggle('on', a.getAttribute('href') === '#' + cur);
+      });
+      /* 手机端导航是横向滚动条，把当前项滚进可视区 */
+      if (cur && isChipNav()){
+        var act = ruler.querySelector('a.on');
+        if (act && ruler.scrollWidth > ruler.clientWidth + 4){
+          var l = act.offsetLeft, w = act.offsetWidth;
+          if (l < ruler.scrollLeft || l + w > ruler.scrollLeft + ruler.clientWidth){
+            ruler.scrollTo({left: Math.max(0, l - ruler.clientWidth / 2 + w / 2), behavior:'smooth'});
+          }
+        }
+      }
+      ticking = false;
+    });
+  }, {passive:true});
+
+  document.getElementById('up').addEventListener('click', function(){
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+
+  /* 快捷键：/ 聚焦搜索，Esc 清空 */
+  document.addEventListener('keydown', function(e){
+    if (e.key === '/' && document.activeElement !== q){ e.preventDefault(); q.focus(); }
+    if (e.key === 'Escape' && document.activeElement === q){ q.value = ''; run(); q.blur(); }
+  });
+})();
+</script>
+</body>
+</html>
