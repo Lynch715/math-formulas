@@ -23,6 +23,12 @@
   --topH:88px;
   --pad:22px;
   --labw:190px;
+  /* 卡片内统一的横向节奏：
+     所有行都是 [--cardpad 外距][--gut 装饰槽][文字]
+     装饰槽给卡片标题的竖条、提示块的左边框用；列表项留空。
+     这样标题、条目、提示的文字左边缘完全对齐。 */
+  --cardpad:16px;
+  --gut:13px;
   /* ---- 默认皮肤：净白 ---- */
   --paper:#F6F7F8;
   --paper2:#FFFFFF;
@@ -194,7 +200,10 @@ body{
 .card{background:var(--paper2);border:1px solid var(--line);border-radius:3px;margin:0 0 16px;overflow:hidden;box-shadow:var(--shadow);scroll-margin-top:calc(var(--topH) + 10px)}
 .card>h3{
   margin:0;font-family:var(--hei);font-size:15px;font-weight:600;letter-spacing:.03em;
-  padding:12px 16px;cursor:pointer;display:flex;align-items:center;gap:10px;
+  /* padding-left 只到装饰槽起点；竖条(3px) + gap(10px) 正好填满 --gut，
+     所以标题文字落在 cardpad + gut，与条目、提示对齐 */
+  padding:12px var(--cardpad);cursor:pointer;display:flex;align-items:center;
+  gap:calc(var(--gut) - 3px);   /* 竖条 3px + 这个间距 = --gut，两者锁死 */
   background:var(--head-bg);
   border-bottom:1px solid transparent;user-select:none;
 }
@@ -209,7 +218,9 @@ body{
 .fl{list-style:none;margin:0;padding:0}
 .fl li{
   display:grid;grid-template-columns:var(--labw) 1fr;gap:16px;align-items:baseline;
-  padding:8px 16px;border-bottom:1px solid var(--line-soft);
+  /* 左侧空出装饰槽，使文字与卡片标题同一条边 */
+  padding:8px var(--cardpad) 8px calc(var(--cardpad) + var(--gut));
+  border-bottom:1px solid var(--line-soft);
 }
 .fl li:last-child{border-bottom:0}
 .lb{color:var(--pencil);font-size:13.5px;line-height:1.55;overflow-wrap:break-word}
@@ -226,7 +237,10 @@ body{
 .f i{display:block;font-style:normal;padding:0 .3em}
 .rt{border-top:1.1px solid currentColor;padding:0 .18em;margin-left:-.08em}
 
-.tip{margin:8px 16px 4px;padding:9px 13px;border-left:3px solid var(--warn);background:var(--tip-bg);font-size:13px;color:var(--tip-fg);line-height:1.7}
+/* 左边框占装饰槽的前 3px，padding 补足剩下的 10px → 文字仍落在 cardpad + gut */
+.tip{margin:8px var(--cardpad) 4px;padding:9px 13px 9px calc(var(--gut) - 3px);
+  border-left:3px solid var(--warn);background:var(--tip-bg);
+  font-size:13px;color:var(--tip-fg);line-height:1.7}
 .tip b{color:var(--warn)}
 
 .foot{max-width:1180px;margin:0 auto;padding:26px var(--pad) 60px;font-size:12.5px;color:var(--pencil);border-top:1px solid var(--line);text-align:center;line-height:2}
@@ -281,7 +295,8 @@ mark{background:var(--mark-bg);color:var(--mark-fg);padding:0 1px;border-radius:
   .main{padding-top:28px}
   .stage-head h2{font-size:27px}
   .stage-head .note{font-size:12px;flex-basis:100%;margin-left:0}
-  .fl li{gap:12px;padding:8px 13px}
+  :root{--cardpad:13px}
+  .fl li{gap:12px;padding-top:8px;padding-bottom:8px}
   .lb{font-size:12.5px}
   .fm{font-size:15px}
   .sep{margin:0 9px}
@@ -291,7 +306,8 @@ mark{background:var(--mark-bg);color:var(--mark-fg);padding:0 1px;border-radius:
 /* ---- 手机竖屏 ---- */
 @media (max-width:700px){
   /* 手机上格纹收细，避免密线干扰阅读 */
-  :root{--pad:12px;--grid-unit:16px}
+  /* 手机上横向空间金贵：外距与装饰槽都收窄，文字左边缘从 38px 提到 33px */
+  :root{--pad:12px;--grid-unit:16px;--cardpad:12px;--gut:9px}
   body{font-size:15px}
   .top-in{padding:9px var(--pad);gap:8px 12px}
   .brand{font-size:19px}
@@ -316,16 +332,16 @@ mark{background:var(--mark-bg);color:var(--mark-fg);padding:0 1px;border-radius:
   .ruler a.on{border-color:var(--accent);background:var(--hover-bg)}
   .main{padding-top:20px}
   /* 单列：名称在上，公式在下 */
-  .fl li{grid-template-columns:1fr;gap:3px;padding:10px 12px}
+  .fl li{grid-template-columns:1fr;gap:3px;padding-top:10px;padding-bottom:10px}
   .lb{font-size:12.5px;color:var(--accent);font-weight:600}
   .fm{font-size:15.5px;line-height:1.9}
   .sep{margin:0 8px}
-  .card>h3{padding:13px 12px;font-size:14.5px;min-height:46px}
+  .card>h3{padding:13px var(--cardpad);font-size:14.5px;min-height:46px}
   .stage-head{margin-bottom:18px;gap:10px}
   .stage-head h2{font-size:24px}
   .stage-head .note{flex-basis:100%;margin-left:0;font-size:12px}
   .stage-blk{margin-bottom:44px}
-  .tip{margin:8px 12px 4px;padding:9px 11px;font-size:12.5px;line-height:1.75}
+  .tip{margin:8px var(--cardpad) 4px;padding-top:9px;padding-bottom:9px;font-size:12.5px;line-height:1.75}
   .foot{padding-bottom:48px}
   .up{right:var(--pad);width:42px;height:42px}
 }
@@ -360,10 +376,10 @@ mark{background:var(--mark-bg);color:var(--mark-fg);padding:0 1px;border-radius:
   .stage-head .note{display:none}
   .stage-blk{margin-bottom:34px}
   .card{margin-bottom:12px}
-  .card>h3{padding:9px 12px;min-height:0}
-  .fl li{padding:6px 12px}
+  .card>h3{padding:9px var(--cardpad);min-height:0}
+  .fl li{padding-top:6px;padding-bottom:6px}
   .fm{line-height:1.75}
-  .tip{margin:6px 12px 2px;padding:7px 10px}
+  .tip{margin:6px var(--cardpad) 2px;padding-top:7px;padding-bottom:7px}
   .up{bottom:calc(12px + env(safe-area-inset-bottom));right:max(12px,env(safe-area-inset-right));width:38px;height:38px;font-size:15px}
 }
 
@@ -430,10 +446,14 @@ mark{background:var(--mark-bg);color:var(--mark-fg);padding:0 1px;border-radius:
   .main{padding-top:0}
   .card{break-inside:avoid;box-shadow:none;margin-bottom:8px}
   .body{display:block!important}
-  .card>h3{background:transparent;padding:7px 0 5px}
+  /* 打印时去掉外距、装饰槽收到 8px（不能设 0：tip 的 calc(--gut - 3px) 会变负值而失效） */
+  :root,:root[data-skin]{--cardpad:0px;--gut:8px}
+  /* 标题竖条在打印时隐藏，所以文字要自己补上装饰槽的宽度才能与条目对齐 */
+  .card>h3{background:transparent;padding:7px 0 5px var(--gut)}
   .card>h3::before{display:none}
-  .fl li{padding:4px 0}
-  .tip{border-left-width:2px;margin:6px 0 2px;padding:5px 9px}
+  .fl li{padding-top:4px;padding-bottom:4px}
+  /* 左边框 2px + padding 6px = 8px，与条目、标题同一条边 */
+  .tip{border-left-width:2px;margin:6px 0 2px;padding:5px 9px 5px calc(var(--gut) - 2px)}
   .stage-blk{break-before:page;margin-bottom:0}
   .stage-blk:first-of-type{break-before:auto}
   .stage-head{margin-bottom:12px}
